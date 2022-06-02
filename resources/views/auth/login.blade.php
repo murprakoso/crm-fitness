@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-
+@section('title', 'Login')
 @section('content')
     <div class="card card-primary">
         <div class="card-header">

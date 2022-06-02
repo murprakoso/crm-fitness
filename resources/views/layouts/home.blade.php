@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
         name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title', 'Home')</title>
+
+    <link rel="icon" href="data:,">
 
     <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/modules/ionicons/css/ionicons.min.css') }}">
@@ -18,6 +22,11 @@
     <link rel="stylesheet" href="{{ asset('dist/css/skins/darksidebar.css') }}">
 
     @stack('css_style')
+
+    {{-- jquery --}}
+    <script src="{{ asset('dist/modules/jquery.min.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
 </head>
 
 <body>
@@ -25,18 +34,19 @@
         <div class="main-wrapper">
             <div class="navbar-bg"></div>
             <nav class="navbar navbar-expand-lg main-navbar">
-                <form class="form-inline mr-auto">
+
+                <div class="form-inline mr-auto">
                     <ul class="navbar-nav mr-3">
                         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i
                                     class="ion ion-navicon-round"></i></a></li>
-                        <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
-                                    class="ion ion-search"></i></a></li>
+                        {{-- <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
+                                    class="ion ion-search"></i></a></li> --}}
                     </ul>
-                    <div class="search-element">
+                    {{-- <div class="search-element">
                         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn" type="submit"><i class="ion ion-search"></i></button>
-                    </div>
-                </form>
+                    </div> --}}
+                </div>
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                             class="nav-link notification-toggle nav-link-lg beep"><i
@@ -94,10 +104,10 @@
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg">
                             <i class="ion ion-android-person d-lg-none"></i>
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <div class="d-sm-none d-lg-inline-block">{{ auth()->user()->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="profile.html" class="dropdown-item has-icon">
+                            <a href="profile" class="dropdown-item has-icon">
                                 <i class="ion ion-android-person"></i> Profile
                             </a>
 
@@ -140,7 +150,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('dist/modules/jquery.min.js') }}"></script>
 
     {{-- popper --}}
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
@@ -152,6 +161,7 @@
         integrity="sha256-/2poGFhTQg18AM3yNkzNogZLCMiiI6ZEj/UJW4mrDdM=" crossorigin="anonymous"></script>
 
     <script src="{{ asset('dist/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+
     <script src="{{ asset('dist/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('dist/modules/scroll-up-bar/dist/scroll-up-bar.min.js') }}"></script>
     <script src="{{ asset('dist/js/sa-functions.js') }}"></script>

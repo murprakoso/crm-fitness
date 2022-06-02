@@ -1,6 +1,6 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-        <a href="index.html">Stisla Lite</a>
+        <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
     </div>
 
     {{-- <div class="sidebar-user">
@@ -26,16 +26,27 @@
         <li class="{{ set_active(['transaksi.index']) }}">
             <a href="{{ route('transaksi.index') }}"><i class="ion ion-folder"></i><span>Transaksi</span></a>
         </li>
-        <li class="">
-            <a href="index.html"><i class="ion ion-folder"></i><span>Data</span></a>
+
+        <li class="{{ set_active(['member.index']) }}">
+            <a href="javascript:void(0);" class="has-dropdown">
+                <i class="ion ion-folder"></i><span> Data</span></a>
+            <ul class="menu-dropdown">
+                <li class="{{ set_active(['member.index']) }}"><a href="{{ route('member.index') }}"><i
+                            class="ion ion-ios-circle-outline"></i>
+                        Member</a>
+                </li>
+            </ul>
         </li>
+
         <li class="">
-            <a href="index.html"><i class="ion ion-folder"></i><span>Laporan</span></a>
+            <a href="#"><i class="ion ion-folder"></i><span>Laporan</span></a>
         </li>
-        <li class="">
-            <a href="index.html"><i class="ion ion-chatbubble"></i><span>Pesan</span></a>
+        <li class="{{ set_active(['pesan.index']) }}">
+            <a href="{{ route('pesan.index') }}"><i class="ion ion-social-whatsapp"></i><span>Pesan</span></a>
         </li>
-        <li class="">
+
+        {{-- LOGOUT --}}
+        <li>
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form-sidebar').submit();">
                 <i class="ion ion-log-out"></i>
