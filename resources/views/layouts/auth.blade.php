@@ -12,8 +12,11 @@
     <link rel="stylesheet"
         href="{{ asset('dist/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css') }}">
 
+    @stack('css_style')
+
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/demo.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+
 </head>
 
 <body>
@@ -57,6 +60,8 @@
     <script src="{{ asset('dist/js/sa-functions.js') }}"></script>
 
     <script src="{{ asset('dist/js/scripts.js') }}"></script>
+
+    @stack('js_script')
 </body>
 
 </html>

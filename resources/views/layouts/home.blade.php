@@ -17,11 +17,12 @@
         href="{{ asset('dist/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('dist/modules/flag-icon-css/css/flag-icon.min.css') }}">
+
+    @stack('css_style')
+
     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 
     <link rel="stylesheet" href="{{ asset('dist/css/skins/darksidebar.css') }}">
-
-    @stack('css_style')
 
     {{-- jquery --}}
     <script src="{{ asset('dist/modules/jquery.min.js') }}"></script>
@@ -47,8 +48,10 @@
                         <button class="btn" type="submit"><i class="ion ion-search"></i></button>
                     </div> --}}
                 </div>
+
+
                 <ul class="navbar-nav navbar-right">
-                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                    {{-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                             class="nav-link notification-toggle nav-link-lg beep"><i
                                 class="ion ion-ios-bell-outline"></i></a>
                         <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -100,7 +103,9 @@
                                 </a>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
+
+
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg">
                             <i class="ion ion-android-person d-lg-none"></i>
@@ -128,6 +133,8 @@
                         </div>
                     </li>
                 </ul>
+
+
             </nav>
 
             <div class="main-sidebar">

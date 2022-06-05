@@ -63,3 +63,5 @@
         Don't have an account? <a href="{{ route('register') }}">Create One</a>
     </div> --}}
 @endsection
+
+@include('vendor.toastr.toastr')

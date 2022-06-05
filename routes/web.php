@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PesanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('member', MemberController::class);
 
     Route::resource('pesan', PesanController::class);
+
+    Route::resource('profile', ProfileController::class)->only(['index', 'update']);
 });
 
 
