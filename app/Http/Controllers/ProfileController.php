@@ -58,4 +58,34 @@ class ProfileController extends Controller
             return redirect()->back()->withInput($request->all());
         }
     }
+
+    /**
+     * Device wa
+     */
+    public function device()
+    {
+        $userId = auth()->user()->id;
+        return view('devices.index', ['profile' => User::find($userId)]);
+    }
+
+    public function deviceUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+
+        try {
+            User::where('id', $request->id)->update(['phone' => $request->phone]);
+
+            session()->flash('success', 'Device berhasil diubah.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Device gagal diubah. ' . $th->getMessage());
+            return redirect()->back();
+        }
+    }
 }

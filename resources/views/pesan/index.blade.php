@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-right">
-                            <a href="#" class="btn btn-primary">Device</a>
+                            <a href="{{ route('device.index') }}" class="btn btn-primary">Device</a>
                             <a href="{{ route('pesan.create') }}" class="btn btn-primary">Tambah Pesan</a>
                         </div>
                         <h4>Data Pesan</h4>

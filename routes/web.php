@@ -38,6 +38,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('pesan', PesanController::class);
 
+    Route::get('device', [ProfileController::class, 'device'])->name('device.index');
+    Route::put('device', [ProfileController::class, 'deviceUpdate'])->name('device.update');
     Route::resource('profile', ProfileController::class)->only(['index', 'update']);
 });
 
