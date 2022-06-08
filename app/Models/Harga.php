@@ -11,4 +11,11 @@ class Harga extends Model
 
     protected $table = 'harga';
     protected $guarded = ['id'];
+
+
+    /** Scope: search */
+    public function scopeSearch($query, $keterangan)
+    {
+        return $query->where('keterangan', 'LIKE', "%{$keterangan}%");
+    }
 }

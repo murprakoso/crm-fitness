@@ -29,6 +29,17 @@ class HargaController extends Controller
         return view('harga.form');
     }
 
+    public function select(Request $request)
+    {
+        $harga = [];
+        if ($request->has('q')) {
+            $harga = Harga::select('harga', 'keterangan')->search($request->q)->get();
+        } else {
+            $harga = Harga::select('harga', 'keterangan')->get();
+        }
+        return response()->json($harga);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

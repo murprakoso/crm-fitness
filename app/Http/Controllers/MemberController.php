@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -11,9 +12,25 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('member.index');
+        $countAllMembers = Member::all()->count();
+        $members = Member::paginate(10);
+        // $members->paginate(10)->appends([ #with query string ])
+
+        return view('member.index', ['members' => $members, 'countMembers' => $countAllMembers]);
+    }
+
+
+    public function select(Request $request)
+    {
+        $member = [];
+        if ($request->has('q')) {
+            $member = Member::select('id', 'nama', 'tanggal_daftar', 'masa_tenggang')->search($request->q)->get();
+        } else {
+            $member = Member::select('id', 'nama', 'tanggal_daftar', 'masa_tenggang')->get();
+        }
+        return response()->json($member);
     }
 
     /**
@@ -45,7 +62,7 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('member.show', ['member' => Member::find($id)]);
     }
 
     /**
@@ -54,9 +71,9 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Member $member)
     {
-        //
+        return view('member.form', ['member' => $member]);
     }
 
     /**
@@ -66,9 +83,9 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Member $member)
     {
-        //
+        dd($member);
     }
 
     /**
@@ -77,8 +94,15 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Member $member)
     {
-        //
+        try {
+            $member->delete();
+            session()->flash('success', 'Member berhasil dihapus.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Member gagal dihapus. ' . $th->getMessage());
+            return redirect()->back();
+        }
     }
 }

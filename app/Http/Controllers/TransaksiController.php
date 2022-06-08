@@ -39,10 +39,17 @@ class TransaksiController extends Controller
         $input['no_hp'] = phone_number($request->no_hp);
         $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
 
-        $imageName = time() . '.' . $request->foto->extension();
-        $request->foto->move(public_path('images'), $imageName);
+        $input['masa_tenggang'] = $input['tanggal_daftar'];
+        if ($request->member == 'tetap') {
+            $input['masa_tenggang'] = date("Y-m-d", strtotime("+1 month", strtotime($input['tanggal_daftar'])));
+        }
 
-        $input['foto'] = $imageName;
+        if ($request->foto) {
+            $imageName = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('images'), $imageName);
+
+            $input['foto'] = $imageName;
+        }
 
         try {
             Member::create($input);
@@ -51,6 +58,24 @@ class TransaksiController extends Controller
             return redirect()->back();
         } catch (\Throwable $th) {
             session()->flash('error', 'Member gagal ditambahkan. ' . $th->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    /** perpanjang member */
+    public function perpanjang(Request $request)
+    {
+        $idMember = $request->id_member;
+        $masaTenggang = date('Y-m-d', strtotime(str_replace("/", "-", $request->masa_tenggang)));
+
+        try {
+            Member::where('id', $idMember)
+                ->update(['masa_tenggang' => $masaTenggang, 'harga' => $request->harga]);
+
+            session()->flash('success', 'Member berhasil diperpanjang.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Member gagal diperpanjang. ' . $th->getMessage());
             return redirect()->back();
         }
     }

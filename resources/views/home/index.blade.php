@@ -25,7 +25,7 @@
                             <h4>Member Masa Tenggang</h4>
                         </div>
                         <div class="card-body">
-                            10
+                            {{ $memberMasaTenggang }}
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             <h4>Member Aktif</h4>
                         </div>
                         <div class="card-body">
-                            42
+                            {{ $memberAktif }}
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                             <h4>Member Terdaftar</h4>
                         </div>
                         <div class="card-body">
-                            1,201
+                            {{ $memberTerdaftar }}
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                             <h4>Member Harian</h4>
                         </div>
                         <div class="card-body">
-                            1,201
+                            {{ $memberHarian }}
                         </div>
                     </div>
                 </div>

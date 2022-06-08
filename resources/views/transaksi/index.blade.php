@@ -36,7 +36,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="perpanjang-tab4" data-toggle="tab" href="#perpanjang"
                                             role="tab" aria-controls="contact" aria-selected="false">
-                                            Perpanjang Member Baru
+                                            Perpanjang Member
                                         </a>
                                     </li>
                                 </ul>
@@ -54,6 +54,7 @@
                                         <form action="{{ route('transaksi.store') }}" method="post"
                                             enctype="multipart/form-data">
                                             @csrf
+                                            <input type="hidden" name="member" value="tetap">
 
                                             <div class="form-group">
                                                 <label> Tanggal Transaksi/Daftar</label>
@@ -67,12 +68,12 @@
                                             <div class="form-group">
                                                 <label> Foto</label>
                                                 <img class="img-fluid d-block my-1 foto--preview" style="width: 20%">
-                                                <input type="file" name="foto" class="form-control" required
-                                                    accept="image/*" onchange="readURL(e)">
+                                                <input type="file" name="foto" class="form-control" accept="image/*"
+                                                    onchange="readURL(e)">
                                             </div>
                                             <div class="form-group">
                                                 <label> Alamat</label>
-                                                <input type="text" name="alamat" class="form-control" required>
+                                                <input type="text" name="alamat" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label> No.HP</label>
@@ -80,11 +81,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label> Pekerjaan</label>
-                                                <input type="text" name="job" class="form-control" required>
+                                                <input type="text" name="job" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label> Gender</label>
-                                                <select name="gender" id="gender" class="form-control" required>
+                                                <select name="gender" class="form-control" required>
                                                     <option value="">-- Pilih Gender --</option>
                                                     <option value="pria">Pria</option>
                                                     <option value="wanita">Wanita</option>
@@ -92,17 +93,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label> Harga</label>
-                                                <select name="harga" id="harga" class="form-control" required
-                                                    style="width: 100%;">
-                                                    <option value="">-- Pilih Harga --</option>
-                                                    <option value="40000">40000</option>
-                                                    <option value="45000">45000</option>
+                                                <select name="harga" class="form-control" required style="width: 100%;">
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label> Jenis Member</label>
-                                                <select name="jenis_member" id="jenis_member" class="form-control"
-                                                    required>
+                                                <select name="jenis_member" class="form-control" required>
                                                     <option value="">-- Pilih Jenis Member --</option>
                                                     <option value="Cardio">Cardio</option>
                                                     <option value="Gym">Gym</option>
@@ -119,43 +115,85 @@
 
                                         <span class="text-body">Member Harian</span>
                                         <hr>
-                                        <form action="#" method="post">
+
+                                        <form action="{{ route('transaksi.store') }}" method="post"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="member" value="harian">
 
                                             <div class="form-group">
-                                                <label> Tanggal Transaksi</label>
-                                                <input type="text" name="title" class="form-control" required>
+                                                <label> Tanggal Transaksi/Daftar</label>
+                                                <input type="text" name="tanggal_daftar" class="form-control" required
+                                                    autocomplete="off">
                                             </div>
                                             <div class="form-group">
-                                                <label> Nama Member</label>
-                                                <input type="text" name="title" class="form-control" required>
+                                                <label> Nama</label>
+                                                <input type="text" name="nama" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Alamat</label>
+                                                <input type="text" name="alamat" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label> No.HP</label>
+                                                <input type="text" name="no_hp" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Pekerjaan</label>
+                                                <input type="text" name="job" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Gender</label>
+                                                <select name="gender" class="form-control" required>
+                                                    <option value="">-- Pilih Gender --</option>
+                                                    <option value="pria">Pria</option>
+                                                    <option value="wanita">Wanita</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Harga</label>
+                                                <select name="harga" class="form-control" required style="width: 100%;">
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Jenis Member</label>
+                                                <select name="jenis_member" class="form-control" required>
+                                                    <option value="">-- Pilih Jenis Member --</option>
+                                                    <option value="Cardio">Cardio</option>
+                                                    <option value="Gym">Gym</option>
+                                                </select>
                                             </div>
 
-                                            <button class="btn btn-primary">Simpan</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
+
                                     </div>
                                     {{-- Perpanjang member baru --}}
                                     <div class="tab-pane fade" id="perpanjang" role="tabpanel"
                                         aria-labelledby="perpanjang-tab4">
 
-                                        <span class="text-body"> Perpanjang Member Baru</span>
+                                        <span class="text-body"> Perpanjang Member </span>
                                         <hr>
-                                        <form action="#" method="post">
-
-                                            <div class="form-group">
-                                                <label> Tanggal Transaksi</label>
-                                                <input type="text" name="title" class="form-control" required>
-                                            </div>
+                                        <form action="{{ route('transaksi.perpanjang') }}" method="post">
+                                            @csrf
                                             <div class="form-group">
                                                 <label> Nama </label>
-                                                <input type="text" name="title" class="form-control" required>
+                                                <select name="id_member" id="perpanjang-member-nama" class="form-control"
+                                                    style="width:100%;" required></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Tanggal Transaksi/Daftar</label>
+                                                <input type="text" id="perpanjang-tanggal-daftar" class="form-control"
+                                                    readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label> Masa Member </label>
-                                                <input type="text" name="title" class="form-control" required>
+                                                <input type="text" name="masa_tenggang" class="form-control" required>
                                             </div>
                                             <div class="form-group">
-                                                <label> Harga </label>
-                                                <input type="text" name="title" class="form-control" required>
+                                                <label> Harga</label>
+                                                <select name="harga" class="form-control" required style="width: 100%;">
+                                                </select>
                                             </div>
 
                                             <button class="btn btn-primary">Simpan</button>
@@ -185,8 +223,25 @@
             });
 
             $('[name=harga]').select2({
-                theme: "bootstrap",
-                tags: true
+                theme: "bootstrap4",
+                placeholder: ' -- Pilih Harga --',
+                allowClear: true,
+                tags: false,
+                ajax: {
+                    url: "{{ route('harga.select') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: `${item.harga} (${item.keterangan})`,
+                                    id: item.harga
+                                }
+                            })
+                        };
+                    }
+                }
             });
 
             function readURL(input) {
@@ -201,6 +256,63 @@
 
             $('[name=foto]').change(function() {
                 readURL(this);
+            });
+
+
+            /**
+             *  PERPANJANG MEMBER
+             */
+
+            function formatDate(date) {
+                const yyyy = date.getFullYear();
+                let mm = date.getMonth() + 1; // Months start at 0!
+                let dd = date.getDate();
+
+                if (dd < 10) dd = '0' + dd;
+                if (mm < 10) mm = '0' + mm;
+
+                return dd + '/' + mm + '/' + yyyy;
+            }
+
+            $('#perpanjang-member-nama').select2({
+                theme: "bootstrap4",
+                placeholder: ' -- Pilih Nama Member --',
+                allowClear: true,
+                tags: false,
+                ajax: {
+                    url: "{{ route('member.select') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: `${item.nama}`,
+                                    id: item.id,
+                                    tanggal_daftar: item.tanggal_daftar,
+                                    masa_tenggang: item.masa_tenggang
+                                }
+                            })
+                        };
+                    }
+                }
+            }).on('select2:select select2:unselecting', function(e) {
+                let data = e.params.data;
+                if (data) {
+                    let tanggalDaftar = formatDate(new Date(data.tanggal_daftar))
+                    let masaTenggang = formatDate(new Date(data.masa_tenggang))
+                    $('#perpanjang-tanggal-daftar').val(tanggalDaftar)
+                    $('[name=masa_tenggang]').val(masaTenggang)
+                } else {
+                    $('#perpanjang-tanggal-daftar').val('')
+                    $('[name=masa_tenggang]').val('')
+                }
+            }).val(0).trigger('change');
+
+            $('[name=masa_tenggang]').datepicker({
+                format: "dd/mm/yyyy",
+                autoclose: true,
+                todayHighlight: "TRUE",
             });
 
 
