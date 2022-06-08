@@ -116,7 +116,7 @@
                                 <i class="ion ion-android-person"></i> Profile
                             </a>
 
-                            <a href="#" class="dropdown-item has-icon">
+                            <a href="{{ route('device.index') }}" class="dropdown-item has-icon">
                                 <i class="ion ion-android-globe"></i> Device
                             </a>
 

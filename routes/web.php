@@ -6,6 +6,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\WaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('harga', HargaController::class);
 
     Route::resource('pesan', PesanController::class);
+
+    /** whatsapp */
+    Route::post('pesan-whatsapp', [WaController::class, 'send'])->name('whatsapp.send');
 
     Route::get('device', [ProfileController::class, 'device'])->name('device.index');
     Route::put('device', [ProfileController::class, 'deviceUpdate'])->name('device.update');

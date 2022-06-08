@@ -42,9 +42,10 @@
             </ul>
         </li>
 
-        <li class="">
-            <a href="#"><i class="ion ion-folder"></i><span>Laporan</span></a>
-        </li>
+        {{-- <li class="">
+            <a href="#"><i class="ion ion-folder"></i><span>Absensi</span></a>
+        </li> --}}
+
         <li class="{{ set_active(['pesan.*']) }}">
             <a href="{{ route('pesan.index') }}"><i class="ion ion-social-whatsapp"></i><span>Pesan</span></a>
         </li>
