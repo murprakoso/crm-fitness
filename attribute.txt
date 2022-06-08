@@ -1,0 +1,25 @@
+# member
+nama
+alamat
+gender
+no_hp
+foto
+job
+harga
+jenis_member
+tanggal_daftar
+
+
+# harga
+gender
+keterangan
+harga
+
+
+# pesan (tambah ,edit, hapus, kirim)
+pesan
+
+
+# device
+nomor
+status

@@ -51,42 +51,36 @@
 
                                         <span class="text-body">Member Baru</span>
                                         <hr>
-                                        <form action="#" method="post">
+                                        <form action="{{ route('transaksi.store') }}" method="post"
+                                            enctype="multipart/form-data">
+                                            @csrf
 
                                             <div class="form-group">
-                                                <label> Tanggal Transaksi</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <label> Tanggal Transaksi/Daftar</label>
+                                                <input type="text" name="tanggal_daftar" class="form-control" required
+                                                    autocomplete="off">
                                             </div>
                                             <div class="form-group">
                                                 <label> Nama</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="nama" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Foto</label>
+                                                <img class="img-fluid d-block my-1 foto--preview" style="width: 20%">
+                                                <input type="file" name="foto" class="form-control" required
+                                                    accept="image/*" onchange="readURL(e)">
                                             </div>
                                             <div class="form-group">
                                                 <label> Alamat</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="alamat" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label> No.HP</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="no_hp" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label> Pekerjaan</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="job" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label> Gender</label>
@@ -95,20 +89,15 @@
                                                     <option value="pria">Pria</option>
                                                     <option value="wanita">Wanita</option>
                                                 </select>
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label> Harga</label>
-                                                <select name="harga" id="harga" class="form-control" required>
+                                                <select name="harga" id="harga" class="form-control" required
+                                                    style="width: 100%;">
                                                     <option value="">-- Pilih Harga --</option>
                                                     <option value="40000">40000</option>
                                                     <option value="45000">45000</option>
                                                 </select>
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label> Jenis Member</label>
@@ -118,9 +107,6 @@
                                                     <option value="Cardio">Cardio</option>
                                                     <option value="Gym">Gym</option>
                                                 </select>
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
                                             </div>
 
                                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -137,17 +123,11 @@
 
                                             <div class="form-group">
                                                 <label> Tanggal Transaksi</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="title" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label> Nama Member</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="title" class="form-control" required>
                                             </div>
 
                                             <button class="btn btn-primary">Simpan</button>
@@ -163,31 +143,19 @@
 
                                             <div class="form-group">
                                                 <label> Tanggal Transaksi</label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="title" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label> Nama </label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="title" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label> Masa Member </label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="title" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label> Harga </label>
-                                                <input type="text" name="title" class="form-control" required="">
-                                                <div class="invalid-feedback">
-                                                    Please fill in the title
-                                                </div>
+                                                <input type="text" name="title" class="form-control" required>
                                             </div>
 
                                             <button class="btn btn-primary">Simpan</button>
@@ -202,3 +170,40 @@
         </div>
     </section>
 @endsection
+
+@include('vendor.datepicker.datepicker')
+@include('vendor.select2.select2')
+@include('vendor.toastr.toastr')
+@push('js_script')
+    <script>
+        $(function() {
+
+            $('[name=tanggal_daftar]').datepicker({
+                format: "dd/mm/yyyy",
+                autoclose: true,
+                todayHighlight: "TRUE",
+            });
+
+            $('[name=harga]').select2({
+                theme: "bootstrap",
+                tags: true
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('.foto--preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $('[name=foto]').change(function() {
+                readURL(this);
+            });
+
+
+        })
+    </script>
+@endpush

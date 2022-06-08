@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PesanController;
@@ -29,6 +30,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('transaksi', TransaksiController::class);
 
     Route::resource('member', MemberController::class);
+
+    Route::resource('harga', HargaController::class);
 
     Route::resource('pesan', PesanController::class);
 

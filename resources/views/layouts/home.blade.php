@@ -157,6 +157,7 @@
         </div>
     </div>
 
+    @stack('embed_modal')
 
     {{-- popper --}}
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"

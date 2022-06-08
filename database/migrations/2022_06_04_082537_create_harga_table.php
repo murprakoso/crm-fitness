@@ -16,7 +16,7 @@ class CreateHargaTable extends Migration
         Schema::create('harga', function (Blueprint $table) {
             $table->id();
             $table->enum('gender', ['pria', 'wanita']);
-            $table->string('nama', 100)->nullable();
+            $table->string('keterangan', 100)->nullable();
             $table->string('harga', 20)->nullable();
             $table->timestamps();
         });

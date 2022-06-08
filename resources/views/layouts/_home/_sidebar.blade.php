@@ -27,13 +27,17 @@
             <a href="{{ route('transaksi.index') }}"><i class="ion ion-folder"></i><span>Transaksi</span></a>
         </li>
 
-        <li class="{{ set_active(['member.index']) }}">
+        <li class="{{ set_active(['member.index', 'harga.index']) }}">
             <a href="javascript:void(0);" class="has-dropdown">
                 <i class="ion ion-folder"></i><span> Data</span></a>
             <ul class="menu-dropdown">
                 <li class="{{ set_active(['member.index']) }}"><a href="{{ route('member.index') }}"><i
                             class="ion ion-ios-circle-outline"></i>
                         Member</a>
+                </li>
+                <li class="{{ set_active(['harga.index']) }}"><a href="{{ route('harga.index') }}"><i
+                            class="ion ion-ios-circle-outline"></i>
+                        Harga</a>
                 </li>
             </ul>
         </li>

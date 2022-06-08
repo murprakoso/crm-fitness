@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -34,7 +35,24 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['no_hp'] = phone_number($request->no_hp);
+        $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
+
+        $imageName = time() . '.' . $request->foto->extension();
+        $request->foto->move(public_path('images'), $imageName);
+
+        $input['foto'] = $imageName;
+
+        try {
+            Member::create($input);
+
+            session()->flash('success', 'Member berhasil ditambahkan.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Member gagal ditambahkan. ' . $th->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
