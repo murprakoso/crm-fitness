@@ -11,6 +11,14 @@ class Member extends Model
 
     protected $guarded = ['id'];
 
+    public static function jobs()
+    {
+        return [
+            'Mahasiswa' => 'Mahasiswa',
+            'PNS' => 'PNS'
+        ];
+    }
+
     /** Scope: search */
     public function scopeSearch($query, $nama)
     {

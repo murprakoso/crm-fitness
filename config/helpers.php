@@ -31,6 +31,9 @@ if (!function_exists('set_active')) {
 if (!function_exists('phone_number')) {
     function phone_number($nohp)
     {
+        if (substr($nohp, 0, 2) === "62") {
+            return $nohp;
+        }
         // kadang ada penulisan no hp 0811 239 345
         $nohp = str_replace(" ", "", $nohp);
         // kadang ada penulisan no hp (0274) 778787

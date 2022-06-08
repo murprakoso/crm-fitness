@@ -68,8 +68,7 @@
                                             <div class="form-group">
                                                 <label> Foto</label>
                                                 <img class="img-fluid d-block my-1 foto--preview" style="width: 20%">
-                                                <input type="file" name="foto" class="form-control" accept="image/*"
-                                                    onchange="readURL(e)">
+                                                <input type="file" name="foto" class="form-control" accept="image/*">
                                             </div>
                                             <div class="form-group">
                                                 <label> Alamat</label>
@@ -81,7 +80,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label> Pekerjaan</label>
-                                                <input type="text" name="job" class="form-control">
+                                                {{-- <input type="text" name="job" class="form-control"> --}}
+                                                <select name="job" class="form-control" required style="width: 100%;">
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label> Gender</label>
@@ -244,6 +245,30 @@
                 }
             });
 
+
+            $('[name=job]').select2({
+                theme: "bootstrap4",
+                placeholder: ' -- Pilih/Masukkan Pekerjaan --',
+                allowClear: true,
+                tags: true,
+                ajax: {
+                    url: "{{ route('member.jobs') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: `${item.body}`,
+                                    id: item.id,
+                                }
+                            })
+                        };
+                    }
+                }
+            })
+
+
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     let reader = new FileReader();
@@ -253,7 +278,6 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             }
-
             $('[name=foto]').change(function() {
                 readURL(this);
             });
@@ -270,7 +294,6 @@
 
                 if (dd < 10) dd = '0' + dd;
                 if (mm < 10) mm = '0' + mm;
-
                 return dd + '/' + mm + '/' + yyyy;
             }
 
@@ -312,6 +335,7 @@
             $('[name=masa_tenggang]').datepicker({
                 format: "dd/mm/yyyy",
                 autoclose: true,
+                // allowClear: false,
                 todayHighlight: "TRUE",
             });
 

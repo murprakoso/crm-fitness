@@ -32,6 +32,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('transaksi', TransaksiController::class);
 
     Route::get('member/select', [MemberController::class, 'select'])->name('member.select');
+    Route::get('member/jobs', [MemberController::class, 'jobs'])->name('member.jobs');
     Route::resource('member', MemberController::class);
 
     Route::get('harga/select', [HargaController::class, 'select'])->name('harga.select');

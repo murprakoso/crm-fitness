@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class MemberController extends Controller
 {
@@ -15,7 +17,7 @@ class MemberController extends Controller
     public function index(Request $request)
     {
         $countAllMembers = Member::all()->count();
-        $members = Member::paginate(10);
+        $members = Member::orderBy('id', 'desc')->paginate(10);
         // $members->paginate(10)->appends([ #with query string ])
 
         return view('member.index', ['members' => $members, 'countMembers' => $countAllMembers]);
@@ -31,6 +33,16 @@ class MemberController extends Controller
             $member = Member::select('id', 'nama', 'tanggal_daftar', 'masa_tenggang')->get();
         }
         return response()->json($member);
+    }
+
+    public function jobs()
+    {
+        $memberJobs = Member::jobs();
+        $jobs = [];
+        foreach ($memberJobs as $key => $val) {
+            $jobs[] = ['body' => $val, 'id' => $val];
+        }
+        return response()->json($jobs);
     }
 
     /**
@@ -85,7 +97,41 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        dd($member);
+        $input = $request->all();
+        // dd($input);
+
+        $input['no_hp'] = phone_number($request->no_hp);
+        $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
+
+        $input['masa_tenggang'] = $input['tanggal_daftar'];
+        if ($request->member == 'tetap') {
+            $input['masa_tenggang'] = date("Y-m-d", strtotime("+1 month", strtotime($input['tanggal_daftar'])));
+        }
+
+        if ($request->foto) {
+            $imageName = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('images'), $imageName);
+
+            # hapus gambar lama
+            if ($request->old_image != null) {
+                $filePath = public_path('images/' . $request->old_image);
+                if (File::exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+
+            $input['foto'] = $imageName;
+        }
+
+        try {
+            $member->update($input);
+
+            session()->flash('success', 'Member berhasil diubah.');
+            return redirect()->route('member.index');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Member gagal diubah. ' . $th->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**

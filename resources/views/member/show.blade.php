@@ -66,7 +66,11 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('jenis_member', 'Jenis Member') !!}
-                            {!! Form::text('jenis_member', null, ['class' => 'form-control', 'readonly' => true]) !!}
+                            {!! Form::text('jenis_member', null, ['class' => 'form-control text-uppercase', 'readonly' => true]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('tipe_member', 'Tipe Member') !!}
+                            {!! Form::text('tipe_member', null, ['class' => 'form-control text-capitalize', 'readonly' => true]) !!}
                         </div>
 
                         <a class="btn btn-outline-secondary" href="{{ route('member.index') }}">Kembali</a>

@@ -23,12 +23,17 @@ $formTitle = !empty($member) ? 'Ubah' : 'Tambah';
                         @include('partials.flash', ['errors' => $errors])
 
                         @if (!empty($member))
-                            {!! Form::model($member, ['url' => ['member', $member->id], 'method' => 'PUT']) !!}
+                            {!! Form::model($member, ['url' => ['member', $member->id], 'method' => 'PUT', 'files' => true]) !!}
                             {!! Form::hidden('id') !!}
+                            {!! Form::hidden('old_image', $member->foto) !!}
                         @else
                             {!! Form::open(['url' => 'member']) !!}
                         @endif
 
+                        <div class="form-group">
+                            {!! Form::label('tanggal_daftar', 'Tanggal Transaksi/Daftar') !!}
+                            {!! Form::text('tanggal_daftar', date('d/m/Y', strtotime($member->tanggal_daftar)), ['class' => 'form-control', 'placeholder' => 'Tangggal Daftar']) !!}
+                        </div>
                         <div class="form-group">
                             {!! Form::label('nama', 'Nama') !!}
                             {!! Form::text('nama', null, ['class' => 'form-control', 'placeholder' => 'Nama']) !!}
@@ -64,11 +69,16 @@ $formTitle = !empty($member) ? 'Ubah' : 'Tambah';
                         </div>
                         <div class="form-group">
                             {!! Form::label('harga', 'Harga') !!}
-                            {!! Form::text('harga', null, ['class' => 'form-control', 'placeholder' => 'Harga']) !!}
+                            {{-- {!! Form::text('harga', null, ['class' => 'form-control', 'placeholder' => 'Harga']) !!} --}}
+                            {!! Form::select('harga', ["$member->harga" => "$member->harga"], null, ['class' => 'form-control harga']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('jenis_member', 'Jenis Member') !!}
-                            {!! Form::text('jenis_member', null, ['class' => 'form-control', 'placeholder' => 'Jenis Member']) !!}
+                            {!! Form::select('jenis_member', ['cardio' => 'Cardio', 'gym' => 'Gym'], null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('tipe_member', 'Tipe Member') !!}
+                            {!! Form::select('tipe_member', ['harian' => 'Harian', 'tetap' => 'Tetap'], null, ['class' => 'form-control']) !!}
                         </div>
 
                         <button class="btn btn-primary" type="submit">
@@ -90,7 +100,9 @@ $formTitle = !empty($member) ? 'Ubah' : 'Tambah';
     @include('layouts._modal-delete')
 @endpush
 
+@include('vendor.datepicker.datepicker')
 @include('vendor.toastr.toastr')
+@include('vendor.select2.select2')
 
 @push('js_script')
     <script>
@@ -105,6 +117,48 @@ $formTitle = !empty($member) ? 'Ubah' : 'Tambah';
                     $('#formDelete').attr('action', '#')
                 });
             })
+
+            $('[name=tanggal_daftar]').datepicker({
+                format: "dd/mm/yyyy",
+                autoclose: true,
+                todayHighlight: true,
+            });
+
+            $('[name=harga]').select2({
+                theme: "bootstrap4",
+                placeholder: ' -- Pilih Harga --',
+                allowClear: true,
+                tags: false,
+                ajax: {
+                    url: "{{ route('harga.select') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: `${item.harga} (${item.keterangan})`,
+                                    id: item.harga
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('.foto--preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $('[name=foto]').change(function() {
+                readURL(this);
+            });
 
         })
     </script>

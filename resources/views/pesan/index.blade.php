@@ -55,6 +55,11 @@
                                                             data-pesan="{{ $pesan->pesan }}" data-ke="masa-tenggang">
                                                             Dalam masa tenggang
                                                         </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item " href="#"
+                                                            data-pesan="{{ $pesan->pesan }}" data-ke="mahasiswa">
+                                                            Job: Mahasiswa
+                                                        </a>
                                                     </div>
                                                 </div>
 
