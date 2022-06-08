@@ -21,13 +21,13 @@
             <a href="{{ route('home') }}"><i class="ion ion-speedometer"></i><span>Home</span></a>
         </li>
 
-        <li class="menu-header">Components</li>
+        <li class="menu-header">Menu</li>
 
         <li class="{{ set_active(['transaksi.index']) }}">
             <a href="{{ route('transaksi.index') }}"><i class="ion ion-folder"></i><span>Transaksi</span></a>
         </li>
 
-        <li class="{{ set_active(['member.index', 'harga.index']) }}">
+        <li class="{{ set_active(['member.index', 'harga.*']) }}">
             <a href="javascript:void(0);" class="has-dropdown">
                 <i class="ion ion-folder"></i><span> Data</span></a>
             <ul class="menu-dropdown">
@@ -35,7 +35,7 @@
                             class="ion ion-ios-circle-outline"></i>
                         Member</a>
                 </li>
-                <li class="{{ set_active(['harga.index']) }}"><a href="{{ route('harga.index') }}"><i
+                <li class="{{ set_active(['harga.*']) }}"><a href="{{ route('harga.index') }}"><i
                             class="ion ion-ios-circle-outline"></i>
                         Harga</a>
                 </li>
@@ -45,7 +45,7 @@
         <li class="">
             <a href="#"><i class="ion ion-folder"></i><span>Laporan</span></a>
         </li>
-        <li class="{{ set_active(['pesan.index']) }}">
+        <li class="{{ set_active(['pesan.*']) }}">
             <a href="{{ route('pesan.index') }}"><i class="ion ion-social-whatsapp"></i><span>Pesan</span></a>
         </li>
 

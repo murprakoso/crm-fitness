@@ -112,13 +112,13 @@
                             <div class="d-sm-none d-lg-inline-block">{{ auth()->user()->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="profile" class="dropdown-item has-icon">
+                            <a href="{{ route('profile.index') }}" class="dropdown-item has-icon">
                                 <i class="ion ion-android-person"></i> Profile
                             </a>
 
-                            {{-- <a href="#" class="dropdown-item has-icon">
-                                <i class="ion ion-log-out"></i> Logout
-                            </a> --}}
+                            <a href="#" class="dropdown-item has-icon">
+                                <i class="ion ion-android-globe"></i> Device
+                            </a>
 
                             <a class="dropdown-item has-icon" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
