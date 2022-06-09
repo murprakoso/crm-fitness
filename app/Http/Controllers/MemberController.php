@@ -16,11 +16,22 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
-        $countAllMembers = Member::all()->count();
-        $members = Member::orderBy('id', 'desc')->paginate(10);
-        // $members->paginate(10)->appends([ #with query string ])
+        $members = Member::orderBy('id', 'desc');
 
-        return view('member.index', ['members' => $members, 'countMembers' => $countAllMembers]);
+        if ($request->get('jenis') && !$request->get('tipe')) {
+            // when only jenis
+            $members->jenis($request->jenis)->search($request->q);
+        } elseif (!$request->get('jenis') && $request->get('tipe')) {
+            // when only tipe
+            $members->tipe($request->tipe)->search($request->q);
+        } elseif ($request->get('jenis') && $request->get('tipe')) {
+            // when jenis & type
+            $members->tipe($request->tipe)->jenis($request->jenis)->search($request->q);
+        }
+
+        // $countAllMembers = Member::all()->count();
+
+        return view('member.index', ['members' => $members->paginate(10)->appends(['jenis' => $request->get('jenis'), 'tipe' => $request->get('tipe'), 'q' => $request->get('q')]), 'countMembers' => $members->count()]);
     }
 
 

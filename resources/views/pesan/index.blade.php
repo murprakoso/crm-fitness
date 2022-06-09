@@ -56,7 +56,7 @@
                                                             Dalam masa tenggang
                                                         </a>
                                                         <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item " href="#"
+                                                        <a class="dropdown-item btn--on-develop" href="#"
                                                             data-pesan="{{ $pesan->pesan }}" data-ke="mahasiswa">
                                                             Job: Mahasiswa
                                                         </a>
@@ -169,6 +169,11 @@
                         $('.btn--pesan-wa').show();
                     }
                 });
+            })
+
+            /** on develop */
+            $('.btn--on-develop').click(function() {
+                toastr.warning('Masih dalam pengembangan.')
             })
 
         })

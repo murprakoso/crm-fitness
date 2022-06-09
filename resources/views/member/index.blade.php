@@ -15,19 +15,28 @@
                         <div class="float-right">
                             <form method="get" action="">
                                 <div class="input-group">
+                                    {{-- Jenis --}}
                                     <select name="jenis" class="custom-select"
                                         style="height: 30px; line-height: 1.2;font-size: 12px;">
                                         <option value="" disabled selected>Jenis..</option>
-                                        <option value="gym">GYM</option>
-                                        <option value="cardio">CARDIO</option>
+                                        <option value="gym" @if (request()->get('jenis') == 'gym') selected @endif>GYM</option>
+                                        <option value="cardio" @if (request()->get('jenis') == 'cardio') selected @endif>CARDIO
+                                        </option>
                                     </select>
+
+                                    {{-- Tipe --}}
                                     <select name="tipe" class="custom-select"
                                         style="height: 30px; line-height: 1.2;font-size: 12px;">
                                         <option value="" disabled selected>Tipe..</option>
-                                        <option value="harian">Harian</option>
-                                        <option value="tetap">Tetap</option>
+                                        <option value="harian" @if (request()->get('tipe') == 'harian') selected @endif>Harian
+                                        </option>
+                                        <option value="tetap" @if (request()->get('tipe') == 'tetap') selected @endif>Tetap
+                                        </option>
                                     </select>
-                                    <input type="text" name="q" class="form-control" placeholder="Search..">
+
+                                    {{-- Search --}}
+                                    <input type="text" name="q" class="form-control" placeholder="Cari Nama.."
+                                        value="{{ request()->get('q') }}">
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-secondary"><i
                                                 class="ion ion-search"></i></button>
@@ -101,7 +110,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <div class="alert alert-secondary text-center">Empty data.</div>
                                         </td>
                                     </tr>

@@ -30,6 +30,11 @@ class Member extends Model
         return $query->where('tipe_member', '=', "$tipe");
     }
 
+    public function scopeJenis($query, $jenis = 'gym')
+    {
+        return $query->where('jenis_member', '=', "$jenis");
+    }
+
     /**
      * Masa tenggang
      * default: 3 hari
