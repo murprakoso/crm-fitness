@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -14,7 +15,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        return view('transaksi.index');
+        return view('transaksi.form');
     }
 
     /**
@@ -35,8 +36,8 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        $input['no_hp'] = phone_number($request->no_hp);
+        $input = $request->except('_token', 'nama');
+        $input['member_id'] = $request->nama;
         $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
 
         $input['masa_tenggang'] = $input['tanggal_daftar'];
@@ -52,12 +53,12 @@ class TransaksiController extends Controller
         }
 
         try {
-            Member::create($input);
+            Transaksi::create($input);
 
-            session()->flash('success', 'Member berhasil ditambahkan.');
+            session()->flash('success', 'Transaksi berhasil ditambahkan.');
             return redirect()->back();
         } catch (\Throwable $th) {
-            session()->flash('error', 'Member gagal ditambahkan. ' . $th->getMessage());
+            session()->flash('error', 'Transaksi gagal ditambahkan. ' . $th->getMessage());
             return redirect()->back();
         }
     }

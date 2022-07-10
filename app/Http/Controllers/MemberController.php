@@ -32,7 +32,14 @@ class MemberController extends Controller
 
         // $countAllMembers = Member::all()->count();
 
-        return view('member.index', ['members' => $members->paginate(10)->appends(['jenis' => $request->get('jenis'), 'tipe' => $request->get('tipe'), 'q' => $request->get('q')]), 'countMembers' => $members->count()]);
+        return view('member.index', [
+            'members' => $members->paginate(10)->appends([
+                'jenis' => $request->get('jenis'),
+                'tipe'  => $request->get('tipe'),
+                'q'     => $request->get('q')
+            ]),
+            'countMembers' => $members->count()
+        ]);
     }
 
 
@@ -40,9 +47,9 @@ class MemberController extends Controller
     {
         $member = [];
         if ($request->has('q')) {
-            $member = Member::select('id', 'nama', 'tanggal_daftar', 'masa_tenggang')->search($request->q)->get();
+            $member = Member::select('id', 'nama')->search($request->q)->get();
         } else {
-            $member = Member::select('id', 'nama', 'tanggal_daftar', 'masa_tenggang')->get();
+            $member = Member::select('id', 'nama')->get();
         }
         return response()->json($member);
     }
