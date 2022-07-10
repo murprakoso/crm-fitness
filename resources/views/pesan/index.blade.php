@@ -20,77 +20,71 @@
                         <h4>Data Pesan</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <table class="table table-striped table-hover table-responsive-sm">
+                            <tr>
+                                <th>#</th>
+                                <th>Keterangan</th>
+                                <th>Isi Pesan</th>
+                                <th class="text-center" style="width: 20%;">Action</th>
+                            </tr>
 
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Keterangan</th>
-                                        <th>Isi Pesan</th>
-                                        <th class="text-center" style="width: 20%;">Action</th>
-                                    </tr>
+                            @php $i = 0; @endphp
+                            @forelse ($pesans as $pesan)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $pesan->keterangan }}</td>
+                                    <td>{{ $pesan->pesan }}</td>
+                                    <td class="text-center">
+                                        <span class="btn--pesan"></span>
 
-                                    @php $i = 0; @endphp
-                                    @forelse ($pesans as $pesan)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            <td>{{ $pesan->keterangan }}</td>
-                                            <td>{{ $pesan->pesan }}</td>
-                                            <td class="text-center">
-                                                <span class="btn--pesan"></span>
+                                        <div class="btn-group dropup mr-1 btn--pesan-wa">
+                                            <button type="button" class="btn btn-success btn-action dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="ion ion-social-whatsapp"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item btn--kirim-pesan-wa" href="#"
+                                                    data-pesan="{{ $pesan->pesan }}" data-ke="semua">
+                                                    Kirim ke semua member
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item btn--kirim-pesan-wa" href="#"
+                                                    data-pesan="{{ $pesan->pesan }}" data-ke="masa-tenggang">
+                                                    Dalam masa tenggang
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item btn--on-develop" href="#"
+                                                    data-pesan="{{ $pesan->pesan }}" data-ke="mahasiswa">
+                                                    Job: Mahasiswa
+                                                </a>
+                                            </div>
+                                        </div>
 
-                                                <div class="btn-group dropup mr-1 btn--pesan-wa">
-                                                    <button type="button" class="btn btn-success btn-action dropdown-toggle"
-                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="ion ion-social-whatsapp"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item btn--kirim-pesan-wa" href="#"
-                                                            data-pesan="{{ $pesan->pesan }}" data-ke="semua">
-                                                            Kirim ke semua member
-                                                        </a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item btn--kirim-pesan-wa" href="#"
-                                                            data-pesan="{{ $pesan->pesan }}" data-ke="masa-tenggang">
-                                                            Dalam masa tenggang
-                                                        </a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item btn--on-develop" href="#"
-                                                            data-pesan="{{ $pesan->pesan }}" data-ke="mahasiswa">
-                                                            Job: Mahasiswa
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                {{-- <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
+                                        {{-- <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                     title="Kirim ke semua member" href="#">
                                                     Kirim ke semua member
                                                 </a> --}}
 
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit" href="{{ route('pesan.edit', $pesan) }}">
-                                                    <i class="ion ion-edit"></i>
-                                                </a>
+                                        <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"
+                                            href="{{ route('pesan.edit', $pesan) }}">
+                                            <i class="ion ion-edit"></i>
+                                        </a>
 
-                                                <a class="btn btn-danger btn-action btn--delete" data-toggle="tooltip"
-                                                    title="Delete" data-url="{{ route('pesan.destroy', $pesan) }}">
-                                                    <i class="ion ion-trash-b"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">
-                                                <div class="alert alert-secondary text-center">Empty data.</div>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </table>
+                                        <a class="btn btn-danger btn-action btn--delete" data-toggle="tooltip"
+                                            title="Delete" data-url="{{ route('pesan.destroy', $pesan) }}">
+                                            <i class="ion ion-trash-b"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="alert alert-secondary text-center">Empty data.</div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </table>
 
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>

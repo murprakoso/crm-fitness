@@ -16,4 +16,15 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Member::class);
     }
+
+    /** Scope */
+    public function scopeTipe($query, $tipe = 'tetap')
+    {
+        return $query->where('tipe_member', '=', "$tipe");
+    }
+
+    public function scopeJenis($query, $jenis = 'gym')
+    {
+        return $query->where('jenis_member', '=', "$jenis");
+    }
 }

@@ -13,9 +13,13 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('transaksi.form');
+        $member = null;
+        if ($request->member) {
+            $member = Member::findOrFail($request->member);
+        }
+        return view('transaksi.form', compact('member'));
     }
 
     /**
@@ -54,6 +58,12 @@ class TransaksiController extends Controller
 
         try {
             Transaksi::create($input);
+            Member::find($request->nama)->update([
+                'status'        => 1, //1:aktif,2:tidak aktif,3:masa tenggang
+                'tipe_member'   => $request->member,
+                'jenis_member'  => $request->jenis_member,
+                'masa_tenggang' => $input['masa_tenggang']
+            ]);
 
             session()->flash('success', 'Transaksi berhasil ditambahkan.');
             return redirect()->back();
@@ -123,6 +133,14 @@ class TransaksiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Transaksi::find($id)->delete();
+
+            session()->flash('success', 'Transaksi berhasil dihapus.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Transaksi gagal dihapus. ' . $th->getMessage());
+            return redirect()->back();
+        }
     }
 }

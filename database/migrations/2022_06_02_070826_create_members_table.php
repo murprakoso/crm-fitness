@@ -22,10 +22,9 @@ class CreateMembersTable extends Migration
             $table->string('no_hp', 15)->nullable();
             $table->string('foto')->nullable();
             $table->string('job')->nullable();
-            // $table->string('harga', 20)->nullable();
-            // $table->enum('tipe_member', ['harian', 'tetap']);
-            // $table->enum('jenis_member', ['cardio', 'gym']);
-            // $table->date('tanggal_daftar');
+            $table->enum('tipe_member', ['harian', 'tetap'])->nullable();
+            $table->enum('jenis_member', ['cardio', 'gym'])->nullable();
+            $table->date('masa_tenggang')->nullable();
             $table->timestamps();
         });
     }

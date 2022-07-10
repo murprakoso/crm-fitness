@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -19,25 +20,17 @@ class MemberController extends Controller
     {
         $members = Member::orderBy('id', 'desc');
 
-        if ($request->get('jenis') && !$request->get('tipe')) {
-            // when only jenis
-            $members->jenis($request->jenis)->search($request->q);
-        } elseif (!$request->get('jenis') && $request->get('tipe')) {
-            // when only tipe
-            $members->tipe($request->tipe)->search($request->q);
-        } elseif ($request->get('jenis') && $request->get('tipe')) {
-            // when jenis & type
-            $members->tipe($request->tipe)->jenis($request->jenis)->search($request->q);
+        if ($request->get('q')) {
+            $members->search($request->q);
         }
 
         // $countAllMembers = Member::all()->count();
 
         return view('member.index', [
             'members' => $members->paginate(10)->appends([
-                'jenis' => $request->get('jenis'),
-                'tipe'  => $request->get('tipe'),
                 'q'     => $request->get('q')
             ]),
+            'statuses' => Member::statuses(),
             'countMembers' => $members->count()
         ]);
     }
@@ -47,7 +40,7 @@ class MemberController extends Controller
     {
         $member = [];
         if ($request->has('q')) {
-            $member = Member::select('id', 'nama')->search($request->q)->get();
+            $member = Member::select('id', 'nama')->name($request->q)->get();
         } else {
             $member = Member::select('id', 'nama')->get();
         }
@@ -176,6 +169,13 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         try {
+            if ($member->foto) {
+                $filePath = public_path('images/' . $member->foto);
+                if (File::exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+
             $member->delete();
             session()->flash('success', 'Member berhasil dihapus.');
             return redirect()->back();

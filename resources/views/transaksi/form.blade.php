@@ -24,6 +24,10 @@
                                     <div class="form-group">
                                         <label> Nama</label>
                                         <select name="nama" class="form-control" required style="width: 100%;">
+                                            @if (!empty(request()->get('member')))
+                                                <option value="{{ $member->id }}" selected>
+                                                    {{ $member->nama }}</option>
+                                            @endif
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -43,8 +47,8 @@
                                         <label> Jenis Member</label>
                                         <select name="jenis_member" class="form-control" required>
                                             <option value="">-- Pilih Jenis Member --</option>
-                                            <option value="Cardio">Cardio</option>
-                                            <option value="Gym">Gym</option>
+                                            <option value="cardio">Cardio</option>
+                                            <option value="gym">Gym</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -126,6 +130,8 @@
                     }
                 }
             });
+
+            // $('[name=nama]').val(40).trigger('change');
         })
     </script>
 @endpush

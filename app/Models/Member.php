@@ -19,16 +19,35 @@ class Member extends Model
         ];
     }
 
+    public static function statuses()
+    {
+        return [
+            1 => 'Aktif',
+            2 => 'Tidak Aktif',
+            3 => 'Masa Tenggang',
+        ];
+    }
+
     /** relasi ke transaksi */
     public function transaksis()
     {
         return $this->hasMany(Transaksi::class);
     }
 
-    /** Scope: search */
-    public function scopeSearch($query, $nama)
+    /** Scope:
+     * search, name, tipe, jenis
+     *
+     */
+    public function scopeSearch($query, $search)
     {
-        return $query->where('nama', 'LIKE', "%{$nama}%");
+        return $query->where('nama', 'LIKE', "%{$search}%")
+            ->orWhere('gender', 'LIKE', "%{$search}")
+            ->orWhere('job', 'LIKE', "%{$search}");
+    }
+
+    public function scopeName($query, $name)
+    {
+        return $query->where('nama', 'LIKE', "%{$name}%");
     }
 
     public function scopeTipe($query, $tipe = 'tetap')

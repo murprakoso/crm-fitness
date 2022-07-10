@@ -20,29 +20,10 @@
                             <form method="get" action="" class="d-inline">
                                 <div class="input-group">
                                     <a href="{{ route('member.create') }}" class="btn btn-primary mr-2">Tambah Member</a>
-                                    {{-- Jenis --}}
-                                    <select name="jenis" class="custom-select"
-                                        style="height: 30px; line-height: 1.2;font-size: 12px;">
-                                        <option value="" disabled selected>Jenis..</option>
-                                        <option value="gym" @if (request()->get('jenis') == 'gym') selected @endif>GYM
-                                        </option>
-                                        <option value="cardio" @if (request()->get('jenis') == 'cardio') selected @endif>CARDIO
-                                        </option>
-                                    </select>
-
-                                    {{-- Tipe --}}
-                                    <select name="tipe" class="custom-select"
-                                        style="height: 30px; line-height: 1.2;font-size: 12px;">
-                                        <option value="" disabled selected>Tipe..</option>
-                                        <option value="harian" @if (request()->get('tipe') == 'harian') selected @endif>Harian
-                                        </option>
-                                        <option value="tetap" @if (request()->get('tipe') == 'tetap') selected @endif>Tetap
-                                        </option>
-                                    </select>
 
                                     {{-- Search --}}
-                                    <input type="text" name="q" class="form-control" placeholder="Cari Nama.."
-                                        value="{{ request()->get('q') }}">
+                                    <input type="text" name="q" class="form-control"
+                                        placeholder="Nama/Gender/Job.." value="{{ request()->get('q') }}">
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-secondary"><i
                                                 class="ion ion-search"></i></button>
@@ -61,7 +42,7 @@
                                     <th>Gender</th>
                                     <th>Job</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th width="15%" class="text-center">Action</th>
                                 </tr>
                                 @forelse ($members as $member)
                                     <tr>
@@ -78,8 +59,13 @@
                                         <td>{{ $member->alamat }}</td>
                                         <td>{{ ucwords($member->gender) }}</td>
                                         <td>{{ $member->job }}</td>
-                                        <td></td>
                                         <td>
+                                            <span
+                                                class="badge badge-{{ $member->status == 1 ? 'primary' : ($member->status == 2 ? 'dark' : 'danger') }}">
+                                                {{ $statuses[$member->status] }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
                                             <a href="{{ route('member.show', $member) }}"
                                                 class="btn btn-action btn-secondary mr-1" data-toggle="tooltip"
                                                 title="Detail">
