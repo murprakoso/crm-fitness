@@ -19,6 +19,12 @@ class Member extends Model
         ];
     }
 
+    /** relasi ke transaksi */
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
     /** Scope: search */
     public function scopeSearch($query, $nama)
     {

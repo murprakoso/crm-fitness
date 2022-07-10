@@ -49,13 +49,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 });
 
 
-// Route::get('/logintest', function () {
-//     // return view('welcome');
-//     return view('layouts.auth');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
+/** Autentikasi */
 require __DIR__ . '/auth.php';

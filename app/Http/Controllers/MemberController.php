@@ -6,6 +6,7 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class MemberController extends Controller
 {
@@ -63,7 +64,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('member.form');
     }
 
     /**
@@ -74,7 +75,34 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama'   => 'required',
+            'alamat' => 'required',
+            'gender' => 'required',
+            'no_hp'  => 'required',
+            'job'    => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+
+        $input = $request->all();
+        $input['no_hp'] = phone_number($request->no_hp);
+
+        if ($request->foto) {
+            $input['foto'] = $this->_uploadImage($request);
+        }
+
+        try {
+            Member::create($input);
+
+            session()->flash('success', 'Member berhasil disimpan.');
+            return redirect()->route('member.index');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Member gagal disimpan. ' . $th->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
@@ -109,8 +137,6 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         $input = $request->all();
-        // dd($input);
-
         $input['no_hp'] = phone_number($request->no_hp);
         $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
 
@@ -120,18 +146,7 @@ class MemberController extends Controller
         }
 
         if ($request->foto) {
-            $imageName = time() . '.' . $request->foto->extension();
-            $request->foto->move(public_path('images'), $imageName);
-
-            # hapus gambar lama
-            if ($request->old_image != null) {
-                $filePath = public_path('images/' . $request->old_image);
-                if (File::exists($filePath)) {
-                    unlink($filePath);
-                }
-            }
-
-            $input['foto'] = $imageName;
+            $input['foto'] = $this->_uploadImage($request);
         }
 
         try {
@@ -161,5 +176,23 @@ class MemberController extends Controller
             session()->flash('error', 'Member gagal dihapus. ' . $th->getMessage());
             return redirect()->back();
         }
+    }
+
+    /**
+     * Upload image/avatar
+     */
+    private function _uploadImage($request)
+    {
+        $imageName = time() . '.' . $request->foto->extension();
+        $request->foto->move(public_path('images'), $imageName);
+        # hapus gambar lama
+        if ($request->old_image != null) {
+            $filePath = public_path('images/' . $request->old_image);
+            if (File::exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+        // $input['foto'] = $imageName;
+        return $imageName; // return nama file
     }
 }

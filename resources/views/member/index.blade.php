@@ -12,14 +12,20 @@
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
+                        <div class="float-left">
+                            <h4>DATA MEMBER ({{ $countMembers }})</h4>
+                        </div>
                         <div class="float-right">
-                            <form method="get" action="">
+
+                            <form method="get" action="" class="d-inline">
                                 <div class="input-group">
+                                    <a href="{{ route('member.create') }}" class="btn btn-primary mr-2">Tambah Member</a>
                                     {{-- Jenis --}}
                                     <select name="jenis" class="custom-select"
                                         style="height: 30px; line-height: 1.2;font-size: 12px;">
                                         <option value="" disabled selected>Jenis..</option>
-                                        <option value="gym" @if (request()->get('jenis') == 'gym') selected @endif>GYM</option>
+                                        <option value="gym" @if (request()->get('jenis') == 'gym') selected @endif>GYM
+                                        </option>
                                         <option value="cardio" @if (request()->get('jenis') == 'cardio') selected @endif>CARDIO
                                         </option>
                                     </select>
@@ -44,16 +50,16 @@
                                 </div>
                             </form>
                         </div>
-                        <h4>DATA MEMBER ({{ $countMembers }})</h4>
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Tanggal Masuk</th>
-                                    <th>Tanggal Masa Member</th>
-                                    <th>Jenis Member</th>
+                                    <th>Alamat</th>
+                                    <th>Gender</th>
+                                    <th>Job</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -61,41 +67,24 @@
                                     <tr>
                                         <td>
                                             @if ($member->foto && file_exists(public_path('images/' . $member->foto)))
-                                                <img src="{{ asset('images/' . $member->foto) }}" alt="avatar" width="30"
-                                                    height="30" class="rounded-circle mr-1">
+                                                <img src="{{ asset('images/' . $member->foto) }}" alt="avatar"
+                                                    width="30" height="30" class="rounded-circle mr-1">
                                             @else
                                                 <img src="{{ asset('images/default.png') }}" alt="avatar" width="30"
                                                     class="rounded-circle mr-1">
                                             @endif
                                             {{ $member->nama }}
                                         </td>
-                                        <td>{{ date('d, M Y', strtotime($member->tanggal_daftar)) }}</td>
-                                        <td>{{ date('d, M Y', strtotime($member->masa_tenggang)) }}</td>
-                                        <td>
-                                            @if ($member->jenis_member == 'gym')
-                                                <div class="badge badge-success text-uppercase">
-                                                    {{ $member->jenis_member }}
-                                                </div>
-                                            @else
-                                                <div class="badge badge-secondary text-uppercase">
-                                                    {{ $member->jenis_member }}
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($member->tipe_member == 'tetap')
-                                                <div class="badge badge-primary text-capitalize">
-                                                    {{ $member->tipe_member }}
-                                                </div>
-                                            @else
-                                                <div class="badge badge-info text-capitalize">
-                                                    {{ $member->tipe_member }}
-                                                </div>
-                                            @endif
-                                        </td>
+                                        <td>{{ $member->alamat }}</td>
+                                        <td>{{ ucwords($member->gender) }}</td>
+                                        <td>{{ $member->job }}</td>
+                                        <td></td>
                                         <td>
                                             <a href="{{ route('member.show', $member) }}"
-                                                class="btn btn-action btn-secondary mr-1">Detail</a>
+                                                class="btn btn-action btn-secondary mr-1" data-toggle="tooltip"
+                                                title="Detail">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
 
                                             <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"
                                                 href="{{ route('member.edit', $member) }}">

@@ -26,11 +26,17 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('tanggal_daftar', 'Tanggal Daftar') !!}
-                            {!! Form::text('tanggal_daftar', date('d M Y', strtotime($member->tanggal_daftar)), ['class' => 'form-control', 'readonly' => true]) !!}
+                            {!! Form::text('tanggal_daftar', date('d M Y', strtotime($member->tanggal_daftar)), [
+                                'class' => 'form-control',
+                                'readonly' => true,
+                            ]) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('masa_tenggang', 'Masa Tenggang') !!}
-                            {!! Form::text('masa_tenggang', date('d M Y', strtotime($member->masa_tenggang)), ['class' => 'form-control', 'readonly' => true]) !!}
+                            {!! Form::text('masa_tenggang', date('d M Y', strtotime($member->masa_tenggang)), [
+                                'class' => 'form-control',
+                                'readonly' => true,
+                            ]) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('alamat', 'Alamat') !!}

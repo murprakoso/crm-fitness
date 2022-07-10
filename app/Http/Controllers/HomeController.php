@@ -15,10 +15,14 @@ class HomeController extends Controller
         // dd($masaTenggang);
 
         return view('home.index', [
-            'memberMasaTenggang' => Member::tenggang()->get()->count(),
-            'memberAktif' => Member::tipe('tetap')->count(),
-            'memberTerdaftar' => Member::all()->count(),
-            'memberHarian' => Member::tipe('harian')->count(),
+            // 'memberMasaTenggang' => Member::tenggang()->get()->count(),
+            // 'memberAktif' => Member::tipe('tetap')->count(),
+            // 'memberTerdaftar' => Member::all()->count(),
+            // 'memberHarian' => Member::tipe('harian')->count(),
+            'memberMasaTenggang' => 0,
+            'memberAktif'        => 0,
+            'memberTerdaftar'    => 0,
+            'memberHarian'       => 0,
         ]);
     }
 }
