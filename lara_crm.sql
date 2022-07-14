@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2022 at 05:12 PM
+-- Generation Time: Jul 14, 2022 at 05:44 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -89,9 +89,9 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `nama`, `alamat`, `gender`, `no_hp`, `foto`, `job`, `status`, `tipe_member`, `jenis_member`, `masa_tenggang`, `created_at`, `updated_at`) VALUES
-(1, 'Prasetyo Mandala', 'Jln. Sukabumi No. 899, Administrasi Jakarta Selatan 37640, Bengkulu', 'wanita', '6289524432340', NULL, 'Mahasiswa', '3', 'harian', 'gym', '2022-07-10', '2022-07-10 14:27:59', '2022-07-10 15:02:13'),
+(1, 'Prasetyo Mandala', 'Jln. Sukabumi No. 899, Administrasi Jakarta Selatan 37640, Bengkulu', 'wanita', '6289524432340', NULL, 'Mahasiswa', '1', 'tetap', 'gym', '2022-08-10', '2022-07-10 14:27:59', '2022-07-14 13:06:30'),
 (2, 'Ika Kani Hariyah S.Pd', 'Gg. Baja No. 113, Pekanbaru 88883, Gorontalo', 'wanita', '6289524432340', NULL, 'Mahasiswa', '3', 'tetap', 'gym', '2022-07-10', '2022-07-10 14:27:59', '2022-07-10 14:55:53'),
-(3, 'Halim Saptono', 'Jln. Wahidin Sudirohusodo No. 857, Bekasi 55125, DIY', 'pria', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-10 14:27:59', '2022-07-10 14:27:59'),
+(3, 'Halim Saptono', 'Jln. Wahidin Sudirohusodo No. 857, Bekasi 55125, DIY', 'pria', '6289524432340', NULL, 'Wiraswasta', '3', 'harian', 'cardio', '2022-07-14', '2022-07-10 14:27:59', '2022-07-14 13:23:09'),
 (4, 'Gilang Lutfan Simbolon S.T.', 'Dk. Sadang Serang No. 64, Blitar 46422, Riau', 'pria', '6289524432340', NULL, 'Mahasiswa', '1', 'tetap', 'gym', '2022-08-01', '2022-07-10 14:27:59', '2022-07-10 14:56:22'),
 (5, 'Rendy Kasiran Mandala', 'Psr. Supomo No. 276, Banjarmasin 59319, Kaltim', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-10 14:27:59', '2022-07-10 14:27:59'),
 (6, 'Digdaya Bagiya Saefullah', 'Gg. Uluwatu No. 156, Lubuklinggau 88087, Sultra', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-10 14:27:59', '2022-07-10 14:27:59'),
@@ -125,7 +125,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2022_06_08_092835_create_pesans_table', 1),
 (8, '2022_06_08_112421_add_phone_to_users', 1),
 (9, '2022_07_09_042437_create_transaksis_table', 1),
-(10, '2022_07_10_163441_add_status_to_members', 1);
+(10, '2022_07_10_163441_add_status_to_members', 1),
+(13, '2022_07_14_205041_create_presensis_table', 2);
 
 -- --------------------------------------------------------
 
@@ -181,6 +182,28 @@ INSERT INTO `pesans` (`id`, `keterangan`, `pesan`, `created_at`, `updated_at`) V
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `presensis`
+--
+
+CREATE TABLE `presensis` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `member_id` bigint(20) UNSIGNED NOT NULL,
+  `keterangan` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `presensis`
+--
+
+INSERT INTO `presensis` (`id`, `member_id`, `keterangan`, `created_at`, `updated_at`) VALUES
+(3, 1, 'Hadir', '2022-07-14 15:37:19', '2022-07-14 15:37:19'),
+(4, 3, 'Hadir', '2022-07-14 15:37:23', '2022-07-14 15:37:23');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `transaksis`
 --
 
@@ -207,7 +230,7 @@ INSERT INTO `transaksis` (`id`, `member_id`, `harga`, `tipe_member`, `jenis_memb
 (5, 4, '50000', 'harian', 'gym', '2022-06-10', '2022-07-10', '2022-07-10 14:47:41', '2022-07-10 14:47:41'),
 (6, 2, '50000', 'harian', 'gym', '2022-06-10', '2022-07-10', '2022-07-10 14:53:59', '2022-07-10 14:53:59'),
 (7, 4, '40000', 'harian', 'gym', '2022-07-01', '2022-08-01', '2022-07-10 14:56:22', '2022-07-10 14:56:22'),
-(8, 1, '40000', 'harian', 'gym', '2022-07-10', '2022-07-10', '2022-07-10 15:02:08', '2022-07-10 15:02:08');
+(8, 1, '50000', 'harian', 'gym', '2022-07-10', '2022-08-10', '2022-07-10 15:02:08', '2022-07-14 13:06:30');
 
 -- --------------------------------------------------------
 
@@ -284,6 +307,13 @@ ALTER TABLE `pesans`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `presensis`
+--
+ALTER TABLE `presensis`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `presensis_member_id_foreign` (`member_id`);
+
+--
 -- Indexes for table `transaksis`
 --
 ALTER TABLE `transaksis`
@@ -323,7 +353,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -338,10 +368,16 @@ ALTER TABLE `pesans`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `presensis`
+--
+ALTER TABLE `presensis`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -352,6 +388,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `presensis`
+--
+ALTER TABLE `presensis`
+  ADD CONSTRAINT `presensis_member_id_foreign` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `transaksis`
