@@ -17,7 +17,9 @@ class HomeController extends Controller
         $this->_updateStatusMember();
 
         return view('home.index', [
-            'memberMasaTenggang' => Member::tenggang()->get()->count(),
+            'memberMasaTenggang' => Member::tenggang()->count(),
+            'memberMasaTenggangList' => Member::tenggang()->paginate(5),
+            'statuses' => Member::statuses(),
             'memberAktif' => Member::tipe('tetap')->count(),
             'memberTerdaftar' => Member::all()->count(),
             'memberHarian' => Member::tipe('harian')->count(),

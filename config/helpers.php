@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 
@@ -68,5 +69,21 @@ if (!function_exists('rupiah')) {
     {
         $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
         return $hasil_rupiah;
+    }
+}
+
+/** Menampilkan tanggal format indonesia */
+if (!function_exists('date_id')) {
+    function date_id($timestamp, $format = 'D MMMM, YYYY')
+    {
+        return Carbon::parse($timestamp)->isoFormat($format);
+    }
+}
+
+/** Menampilkan jam format indonesia */
+if (!function_exists('time_id')) {
+    function time_id($timestamp, $format = 'h:i a')
+    {
+        return Carbon::parse($timestamp)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format($format);
     }
 }

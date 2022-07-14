@@ -15,11 +15,7 @@ class TransaksiController extends Controller
      */
     public function index(Request $request)
     {
-        $member = null;
-        if ($request->member) {
-            $member = Member::findOrFail($request->member);
-        }
-        return view('transaksi.form', compact('member'));
+        return view('transaksi.index', ['transaksis' => Transaksi::latest()->paginate(10)]);
     }
 
     /**
@@ -27,9 +23,13 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $member = null;
+        if ($request->member) {
+            $member = Member::findOrFail($request->member);
+        }
+        return view('transaksi.form', compact('member'));
     }
 
     /**
@@ -47,13 +47,6 @@ class TransaksiController extends Controller
         $input['masa_tenggang'] = $input['tanggal_daftar'];
         if ($request->member == 'tetap') {
             $input['masa_tenggang'] = date("Y-m-d", strtotime("+1 month", strtotime($input['tanggal_daftar'])));
-        }
-
-        if ($request->foto) {
-            $imageName = time() . '.' . $request->foto->extension();
-            $request->foto->move(public_path('images'), $imageName);
-
-            $input['foto'] = $imageName;
         }
 
         try {
@@ -108,9 +101,10 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Transaksi $transaksi)
     {
-        //
+        $member = Member::findOrFail($transaksi->member_id);
+        return view('transaksi.form', compact('transaksi', 'member'));
     }
 
     /**
@@ -120,9 +114,32 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Transaksi $transaksi)
     {
-        //
+        $input = $request->except('_token', 'nama');
+        $input['member_id'] = $request->nama;
+        $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
+
+        $input['masa_tenggang'] = $input['tanggal_daftar'];
+        if ($request->member == 'tetap') {
+            $input['masa_tenggang'] = date("Y-m-d", strtotime("+1 month", strtotime($input['tanggal_daftar'])));
+        }
+
+        try {
+            $transaksi->update($input);
+            Member::find($request->nama)->update([
+                'status'        => 1, //1:aktif,2:tidak aktif,3:masa tenggang
+                'tipe_member'   => $request->member,
+                'jenis_member'  => $request->jenis_member,
+                'masa_tenggang' => $input['masa_tenggang']
+            ]);
+
+            session()->flash('success', 'Transaksi berhasil diubah.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Transaksi gagal diubah. ' . $th->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**

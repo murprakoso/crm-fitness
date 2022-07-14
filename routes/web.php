@@ -4,6 +4,7 @@ use App\Http\Controllers\HargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PesanController;
+use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WaController;
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::post('transaksi/perpanjang', [TransaksiController::class, 'perpanjang'])->name('transaksi.perpanjang');
     Route::resource('transaksi', TransaksiController::class);
+
+    Route::resource('presensi', PresensiController::class);
 
     Route::get('member/select', [MemberController::class, 'select'])->name('member.select');
     Route::get('member/jobs', [MemberController::class, 'jobs'])->name('member.jobs');

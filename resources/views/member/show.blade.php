@@ -62,7 +62,7 @@
                             <div class="col-lg-7">
                                 <label for="#" class="text-secondary font-weight-bold">Tabel Transaksi</label>
 
-                                <a href="{{ url('/transaksi?member=' . $member->id) }}" class="float-right">
+                                <a href="{{ url('/transaksi/create?member=' . $member->id) }}" class="float-right">
                                     <i class="fa fa-plus"></i>
                                     Tambah Transaksi
                                 </a>
@@ -81,10 +81,10 @@
                                             <tr>
                                                 <td class="text-center">{{ $key + 1 }}</td>
                                                 <td>
-                                                    {{ date('d, F Y', strtotime($transaksi->tanggal_daftar)) }}
+                                                    {{ date_id($transaksi->tanggal_daftar) }}
                                                 </td>
                                                 <td>
-                                                    {{ date('d, F Y', strtotime($transaksi->masa_tenggang)) }}
+                                                    {{ date_id($transaksi->masa_tenggang) }}
                                                 </td>
                                                 <td>{{ rupiah($transaksi->harga) }}</td>
                                                 <td class="text-center">
