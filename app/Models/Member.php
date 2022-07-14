@@ -34,6 +34,12 @@ class Member extends Model
         return $this->hasMany(Transaksi::class);
     }
 
+    /** relasi ke presensi */
+    public function presensis()
+    {
+        return $this->hasMany(Presensi::class);
+    }
+
     /** Scope:
      * search, name, tipe, jenis
      *

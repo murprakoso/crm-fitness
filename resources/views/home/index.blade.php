@@ -144,11 +144,3 @@
 
     </section>
 @endsection
-
-@push('css_style')
-    <style>
-        .table tr>td {
-            vertical-align: middle;
-        }
-    </style>
-@endpush

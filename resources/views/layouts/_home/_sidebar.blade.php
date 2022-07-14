@@ -29,7 +29,7 @@
         </li>
 
         <li class="{{ set_active(['presensi.*']) }}">
-            <a href="#"><i class="ion ion-android-clipboard"></i><span>Presensi</span></a>
+            <a href="{{ route('presensi.index') }}"><i class="ion ion-android-clipboard"></i><span>Presensi</span></a>
         </li>
 
         <li class="{{ set_active(['member.*', 'harga.*']) }}">

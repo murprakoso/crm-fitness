@@ -79,3 +79,11 @@ if (!function_exists('date_id')) {
         return Carbon::parse($timestamp)->isoFormat($format);
     }
 }
+
+/** Menampilkan jam format indonesia */
+if (!function_exists('time_id')) {
+    function time_id($timestamp, $format = 'h:i a')
+    {
+        return Carbon::parse($timestamp)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format($format);
+    }
+}
