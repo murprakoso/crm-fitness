@@ -81,10 +81,10 @@
                                             <tr>
                                                 <td class="text-center">{{ $key + 1 }}</td>
                                                 <td>
-                                                    {{ date('d, F Y', strtotime($transaksi->tanggal_daftar)) }}
+                                                    {{ date_id($transaksi->tanggal_daftar) }}
                                                 </td>
                                                 <td>
-                                                    {{ date('d, F Y', strtotime($transaksi->masa_tenggang)) }}
+                                                    {{ date_id($transaksi->masa_tenggang) }}
                                                 </td>
                                                 <td>{{ rupiah($transaksi->harga) }}</td>
                                                 <td class="text-center">

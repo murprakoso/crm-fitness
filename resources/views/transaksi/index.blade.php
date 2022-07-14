@@ -38,7 +38,8 @@
                                         <td>{{ ++$i }}</td>
                                         <td>{{ $transaksi->member->nama }}</td>
                                         <td class="text-primary">
-                                            {{ date('d, F Y', strtotime($transaksi->tanggal_daftar)) }}</td>
+                                            {{ date_id($transaksi->tanggal_daftar) }}
+                                        </td>
                                         <td>{{ ucwords($transaksi->tipe_member) }}</td>
                                         <td>{{ ucwords($transaksi->jenis_member) }}</td>
                                         <td>{{ rupiah($transaksi->harga) }}</td>

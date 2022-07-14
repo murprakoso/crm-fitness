@@ -24,7 +24,12 @@
         <li class="menu-header">Menu</li>
 
         <li class="{{ set_active(['transaksi.*']) }}">
-            <a href="{{ route('transaksi.index') }}"><i class="ion ion-folder"></i><span>Transaksi</span></a>
+            <a href="{{ route('transaksi.index') }}"><i
+                    class="ion ion-ios-list-outline"></i><span>Transaksi</span></a>
+        </li>
+
+        <li class="{{ set_active(['presensi.*']) }}">
+            <a href="#"><i class="ion ion-android-clipboard"></i><span>Presensi</span></a>
         </li>
 
         <li class="{{ set_active(['member.*', 'harga.*']) }}">
