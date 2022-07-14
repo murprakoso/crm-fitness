@@ -23,7 +23,7 @@
 
         <li class="menu-header">Menu</li>
 
-        <li class="{{ set_active(['transaksi.index']) }}">
+        <li class="{{ set_active(['transaksi.*']) }}">
             <a href="{{ route('transaksi.index') }}"><i class="ion ion-folder"></i><span>Transaksi</span></a>
         </li>
 

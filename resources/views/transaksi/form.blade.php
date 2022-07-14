@@ -1,6 +1,10 @@
 @extends('layouts.home')
 
-@section('title', 'Transaksi')
+@php
+$formTitle = empty($transaksi) ? 'Simpan' : 'Ubah';
+@endphp
+
+@section('title', $formTitle . ' Transaksi')
 
 @section('content')
     <section class="section">
@@ -13,53 +17,60 @@
             <div class="col-12 col-sm-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4> Pendaftaran Member</h4>
+                        <h4> Transaksi Member</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
 
                             <div class="col-12">
-                                <form action="{{ route('transaksi.store') }}" method="post">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label> Nama</label>
-                                        <select name="nama" class="form-control" required style="width: 100%;">
-                                            @if (!empty(request()->get('member')))
-                                                <option value="{{ $member->id }}" selected>
-                                                    {{ $member->nama }}</option>
-                                            @endif
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Tanggal Transaksi/Daftar</label>
-                                        <input type="text" name="tanggal_daftar" class="form-control" required
-                                            autocomplete="off">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Tipe Member</label>
-                                        <select name="member" class="form-control" required>
-                                            <option value="">-- Pilih Tipe Member --</option>
-                                            <option value="harian">Harian</option>
-                                            <option value="tetap">Tetap</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Jenis Member</label>
-                                        <select name="jenis_member" class="form-control" required>
-                                            <option value="">-- Pilih Jenis Member --</option>
-                                            <option value="cardio">Cardio</option>
-                                            <option value="gym">Gym</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Harga</label>
-                                        <select name="harga" class="form-control" required style="width: 100%;">
-                                        </select>
-                                    </div>
+
+                                @if (empty($transaksi))
+                                    {!! Form::open(['route' => 'transaksi.store']) !!}
+                                @else
+                                    {!! Form::open(['route' => ['transaksi.update', 'transaksi' => $transaksi], 'method' => 'PUT']) !!}
+                                @endif
+
+                                <div class="form-group">
+                                    <label> Nama</label>
+                                    <select name="nama" class="form-control" required style="width: 100%;">
+                                        @if (!empty(request()->get('member')) || !empty($member))
+                                            <option value="{{ $member->id }}" selected>
+                                                {{ $member->nama }}</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label> Tanggal Transaksi/Daftar</label>
+                                    @php
+                                        $tglSelected = !empty($transaksi) ? date('d/m/Y', strtotime($transaksi->tanggal_daftar)) : null;
+                                    @endphp
+                                    {{ Form::text('tanggal_daftar', $tglSelected, ['class' => 'form-control', 'placeholder' => 'd/m/Y']) }}
+                                </div>
+                                <div class="form-group">
+                                    <label> Tipe Member</label>
+                                    @php $selectedMember = (!empty(old('member')) ? old('member') : !empty($transaksi)) ? $transaksi->tipe_member : ''; @endphp
+                                    {{ Form::select('member', ['harian' => 'Harian', 'tetap' => 'Tetap'], $selectedMember, ['placeholder' => '-- Pilih Tipe Member --', 'class' => 'form-control']) }}
+                                </div>
+                                <div class="form-group">
+                                    <label> Jenis Member</label>
+                                    @php $selectedJM = (!empty(old('jenis_member')) ? old('jenis_member') : !empty($transaksi)) ? $transaksi->jenis_member : ''; @endphp
+                                    {{ Form::select('jenis_member', ['cardio' => 'Cardio', 'gym' => 'Gym'], $selectedJM, ['placeholder' => '-- Pilih Jenis Member --', 'class' => 'form-control']) }}
+                                </div>
+                                <div class="form-group">
+                                    <label> Harga</label>
+                                    @php
+                                        $hargaSelected = !empty($transaksi) ? [$transaksi->harga => $transaksi->harga] : [];
+                                    @endphp
+                                    {{ Form::select('harga', $hargaSelected, null, ['class' => 'form-control', 'style' => 'width:100%;']) }}
+                                </div>
 
 
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </form>
+                                <button type="submit" class="btn btn-primary">
+                                    {{ $formTitle }}
+                                </button>
+                                <a class="btn btn-outline-secondary" href="{{ route('transaksi.index') }}">Kembali</a>
+
+                                {!! Form::close() !!}
                             </div>
 
                         </div>

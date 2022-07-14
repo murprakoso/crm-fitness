@@ -62,7 +62,7 @@
                             <div class="col-lg-7">
                                 <label for="#" class="text-secondary font-weight-bold">Tabel Transaksi</label>
 
-                                <a href="{{ url('/transaksi?member=' . $member->id) }}" class="float-right">
+                                <a href="{{ url('/transaksi/create?member=' . $member->id) }}" class="float-right">
                                     <i class="fa fa-plus"></i>
                                     Tambah Transaksi
                                 </a>
