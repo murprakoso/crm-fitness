@@ -44,24 +44,24 @@ $formTitle = empty($transaksi) ? 'Simpan' : 'Ubah';
                                     @php
                                         $tglSelected = !empty($transaksi) ? date('d/m/Y', strtotime($transaksi->tanggal_daftar)) : null;
                                     @endphp
-                                    {{ Form::text('tanggal_daftar', $tglSelected, ['class' => 'form-control', 'placeholder' => 'd/m/Y']) }}
+                                    {{ Form::text('tanggal_daftar', $tglSelected, ['class' => 'form-control', 'placeholder' => 'd/m/Y', 'required' => true]) }}
                                 </div>
                                 <div class="form-group">
                                     <label> Tipe Member</label>
                                     @php $selectedMember = (!empty(old('member')) ? old('member') : !empty($transaksi)) ? $transaksi->tipe_member : ''; @endphp
-                                    {{ Form::select('member', ['harian' => 'Harian', 'tetap' => 'Tetap'], $selectedMember, ['placeholder' => '-- Pilih Tipe Member --', 'class' => 'form-control']) }}
+                                    {{ Form::select('member', ['harian' => 'Harian', 'tetap' => 'Tetap'], $selectedMember, ['placeholder' => '-- Pilih Tipe Member --', 'class' => 'form-control', 'required' => true]) }}
                                 </div>
                                 <div class="form-group">
                                     <label> Jenis Member</label>
                                     @php $selectedJM = (!empty(old('jenis_member')) ? old('jenis_member') : !empty($transaksi)) ? $transaksi->jenis_member : ''; @endphp
-                                    {{ Form::select('jenis_member', ['cardio' => 'Cardio', 'gym' => 'Gym'], $selectedJM, ['placeholder' => '-- Pilih Jenis Member --', 'class' => 'form-control']) }}
+                                    {{ Form::select('jenis_member', ['cardio' => 'Cardio', 'gym' => 'Gym'], $selectedJM, ['placeholder' => '-- Pilih Jenis Member --', 'class' => 'form-control', 'required' => true]) }}
                                 </div>
                                 <div class="form-group">
                                     <label> Harga</label>
                                     @php
                                         $hargaSelected = !empty($transaksi) ? [$transaksi->harga => $transaksi->harga] : [];
                                     @endphp
-                                    {{ Form::select('harga', $hargaSelected, null, ['class' => 'form-control', 'style' => 'width:100%;']) }}
+                                    {{ Form::select('harga', $hargaSelected, null, ['class' => 'form-control', 'style' => 'width:100%;', 'required' => true]) }}
                                 </div>
 
 
