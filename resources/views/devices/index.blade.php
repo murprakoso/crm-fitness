@@ -25,7 +25,7 @@
                         {{--  --}}
                         <div class="form-group">
                             {!! Form::label('phone', 'Phone') !!}
-                            {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'Phone']) !!}
+                            {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => '628XXX...']) !!}
                         </div>
 
 
@@ -97,6 +97,15 @@
 @endsection
 
 @include('vendor.toastr.toastr')
+
+@push('css_style')
+    <style>
+        button:disabled {
+            cursor: not-allowed;
+            pointer-events: all !important;
+        }
+    </style>
+@endpush
 @push('js_script')
     <script>
         $(function() {

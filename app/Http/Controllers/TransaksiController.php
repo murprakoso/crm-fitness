@@ -43,6 +43,7 @@ class TransaksiController extends Controller
         $input = $request->except('_token', 'nama');
         $input['member_id'] = $request->nama;
         $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
+        $input['tipe_member'] = $request->member;
 
         $input['masa_tenggang'] = $input['tanggal_daftar'];
         if ($request->member == 'tetap') {
@@ -119,6 +120,7 @@ class TransaksiController extends Controller
         $input = $request->except('_token', 'nama');
         $input['member_id'] = $request->nama;
         $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
+        $input['tipe_member'] = $request->member;
 
         $input['masa_tenggang'] = $input['tanggal_daftar'];
         if ($request->member == 'tetap') {
