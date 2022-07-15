@@ -53,7 +53,7 @@ class TransaksiController extends Controller
         try {
             Transaksi::create($input);
             Member::find($request->nama)->update([
-                'status'        => 1, //1:aktif,2:tidak aktif,3:masa tenggang
+                'status'        => $this->_status($input['masa_tenggang']), //1:aktif,2:tidak aktif,3:masa tenggang
                 'tipe_member'   => $request->member,
                 'jenis_member'  => $request->jenis_member,
                 'masa_tenggang' => $input['masa_tenggang']
@@ -130,7 +130,7 @@ class TransaksiController extends Controller
         try {
             $transaksi->update($input);
             Member::find($request->nama)->update([
-                'status'        => 1, //1:aktif,2:tidak aktif,3:masa tenggang
+                'status'        => $this->_status($input['masa_tenggang']), //1:aktif,2:tidak aktif,3:masa tenggang
                 'tipe_member'   => $request->member,
                 'jenis_member'  => $request->jenis_member,
                 'masa_tenggang' => $input['masa_tenggang']
@@ -161,5 +161,15 @@ class TransaksiController extends Controller
             session()->flash('error', 'Transaksi gagal dihapus. ' . $th->getMessage());
             return redirect()->back();
         }
+    }
+
+    //1:aktif,2:tidak aktif,3:masa tenggang
+    private function _status($tglDaftar)
+    {
+        $currDate = date('Y-m-d');
+        if ($tglDaftar < $currDate) {
+            return 3;
+        }
+        return 1;
     }
 }
