@@ -113,7 +113,10 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        return view('member.show', ['member' => Member::find($id)]);
+        return view('member.show', [
+            'member' => Member::find($id),
+            'transaksis' => Transaksi::where('member_id', $id)->paginate(10)
+        ]);
     }
 
     /**

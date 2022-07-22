@@ -32,14 +32,14 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
                                     <th>Jam</th>
                                     <th>Keterangan</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                                 @php $i = 0; @endphp
                                 @forelse ($presensis as $presensi)
@@ -60,7 +60,7 @@
                                         <td>
                                             <span class="badge badge-info">{{ $presensi->keterangan }}</span>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a class="btn btn-danger btn-action btn--delete" data-toggle="tooltip"
                                                 title="Delete" data-url="{{ route('presensi.destroy', $presensi) }}">
                                                 <i class="ion ion-trash-b"></i>

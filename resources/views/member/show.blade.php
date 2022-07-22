@@ -77,7 +77,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($member->transaksis as $key => $transaksi)
+                                        @forelse ($transaksis as $key => $transaksi)
                                             <tr>
                                                 <td class="text-center">{{ $key + 1 }}</td>
                                                 <td>
@@ -106,7 +106,8 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                                {{-- {{ $member->transaksis->links() }} --}}
+
+                                {{ $transaksis->links() }}
                             </div>
                         </div>
 
