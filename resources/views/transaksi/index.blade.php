@@ -17,12 +17,25 @@
                             <h4> Daftar Transaksi</h4>
                         </div>
                         <div class="float-right">
-                            <a href="{{ route('transaksi.create') }}" class="btn btn-primary">Tambah Transaksi</a>
+
+                            <form method="get" action="" class="d-inline">
+                                <div class="input-group">
+                                    <a href="{{ route('transaksi.create') }}" class="btn btn-primary mr-2">Tambah
+                                        Transaksi</a>
+                                    {{-- Search --}}
+                                    <input type="text" name="q" class="form-control"
+                                        placeholder="Nama/Tgl/Tipe/Jenis/Harga.." value="{{ request()->get('q') }}">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-secondary"><i
+                                                class="ion ion-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>
@@ -30,7 +43,7 @@
                                     <th>Tipe Member</th>
                                     <th>Jenis Member</th>
                                     <th>Harga</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                                 @php $i = 0; @endphp
                                 @forelse ($transaksis as $transaksi)
@@ -41,16 +54,20 @@
                                             {{ date_id($transaksi->tanggal_daftar) }}
                                         </td>
                                         <td>{{ ucwords($transaksi->tipe_member) }}</td>
-                                        <td>{{ ucwords($transaksi->jenis_member) }}</td>
-                                        <td>{{ rupiah($transaksi->harga) }}</td>
                                         <td>
+                                            <span
+                                                class="badge badge-{{ $transaksi->jenis_member == 'gym' ? 'dark' : 'light border' }}">
+                                                {{ ucwords($transaksi->jenis_member) }}
+                                            </span>
+                                        </td>
+                                        <td>{{ rupiah($transaksi->harga) }}</td>
+                                        <td class="text-center">
                                             <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"
                                                 href="{{ route('transaksi.edit', $transaksi->id) }}">
                                                 <i class="ion ion-edit"></i>
                                             </a>
                                             <a class="btn btn-danger btn-action btn--delete" data-toggle="tooltip"
-                                                title="Delete"
-                                                data-url="{{ route('transaksi.destroy', $transaksi->id) }}">
+                                                title="Delete" data-url="{{ route('transaksi.destroy', $transaksi->id) }}">
                                                 <i class="ion ion-trash-b"></i>
                                             </a>
                                         </td>

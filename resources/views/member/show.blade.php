@@ -106,6 +106,7 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                {{-- {{ $member->transaksis->links() }} --}}
                             </div>
                         </div>
 

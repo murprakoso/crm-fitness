@@ -69,7 +69,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <div class="alert alert-secondary text-center">Empty data.</div>
                                         </td>
                                     </tr>

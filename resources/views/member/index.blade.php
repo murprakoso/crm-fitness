@@ -92,7 +92,8 @@
                                 @endforelse
                             </table>
 
-                            {{ $members->links() }}
+                            {{ $members->links('vendor.pagination.bootstrap-4') }}
+
                         </div>
                     </div>
                 </div>

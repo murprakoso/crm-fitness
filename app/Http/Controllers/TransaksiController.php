@@ -15,7 +15,17 @@ class TransaksiController extends Controller
      */
     public function index(Request $request)
     {
-        return view('transaksi.index', ['transaksis' => Transaksi::latest()->paginate(10)]);
+        $transaksis = Transaksi::orderBy('transaksis.id', 'desc');
+
+        if ($request->q) {
+            $transaksis->search($request->q);
+        }
+
+        return view('transaksi.index', [
+            'transaksis' => $transaksis->paginate(10)->appends([
+                'q' => $request->q
+            ])
+        ]);
     }
 
     /**

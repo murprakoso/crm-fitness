@@ -18,6 +18,19 @@ class Transaksi extends Model
     }
 
     /** Scope */
+    public function scopeSearch($query, $search)
+    {
+        return $query->join('members', function ($join) {
+            $join->on('members.id', '=', 'transaksis.member_id');
+        })
+            ->select('transaksis.*', 'members.nama')
+            ->where('members.nama', 'LIKE', "%{$search}%")
+            ->orWhere('transaksis.harga', 'LIKE', "%{$search}")
+            ->orWhere('transaksis.jenis_member', 'LIKE', "%{$search}")
+            ->orWhere('transaksis.tipe_member', 'LIKE', "%{$search}")
+            ->orWhere('transaksis.tanggal_daftar', 'LIKE', "%{$search}");
+    }
+
     public function scopeTipe($query, $tipe = 'tetap')
     {
         return $query->where('tipe_member', '=', "$tipe");
