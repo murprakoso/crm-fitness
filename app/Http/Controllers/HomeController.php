@@ -28,9 +28,15 @@ class HomeController extends Controller
 
     private function _updateStatusMember()
     {
+        // member dalam masa tenggang
         $members = Member::tenggang()->get();
         foreach ($members as $key => $member) {
-            $member->update(['status' => 3]);
+            $member->update(['status' => 3]); // 3:masa tenggang
+        }
+        // member expire
+        $membersEx = Member::expire()->get();
+        foreach ($membersEx as $key => $member) {
+            $member->update(['status' => 2]); // 2:tidak aktif
         }
     }
 }

@@ -89,7 +89,7 @@
                                 </tr>
                             @endforelse
                         </table>
-
+                        {{ $pesans->links() }}
                     </div>
                 </div>
             </div>
