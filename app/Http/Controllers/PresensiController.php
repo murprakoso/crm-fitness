@@ -13,10 +13,23 @@ class PresensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $presensis = Presensi::latest()->paginate(10);
-        return view('presensi.index', compact('presensis'));
+        $presensis = Presensi::latest();
+
+        if ($request->q || $request->tanggal) {
+            $date = $request->tanggal
+                ? date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal)))
+                : null;
+            $presensis->filter($request->q, $date);
+        }
+
+        return view('presensi.index', [
+            'presensis' => $presensis->paginate(10)->appends([
+                'q'       => $request->q,
+                'tanggal' => $request->tanggal
+            ])
+        ]);
     }
 
     /**

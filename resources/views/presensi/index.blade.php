@@ -30,6 +30,25 @@
                 </div>
                 <hr>
                 <div class="row">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                        <form action="" method="get">
+                            <div class="input-group mb-3">
+                                <input type="text" name="tanggal" class="form-control" placeholder="Tanggal.."
+                                    autocomplete="off" value="{{ request()->get('tanggal') }}">
+                                <input type="text" name="q" class="form-control" placeholder="Nama.."
+                                    value="{{ request()->get('q') }}">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-secondary" type="button">
+                                        <i class="ion ion-search"></i>&nbsp;
+                                        Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -91,6 +110,7 @@
     @include('layouts._modal-delete')
 @endpush
 
+@include('vendor.datepicker.datepicker')
 @include('vendor.select2.select2')
 @include('vendor.toastr.toastr')
 
@@ -150,6 +170,13 @@
                     }
                 }
             })
+
+            //
+            $('[name=tanggal]').datepicker({
+                format: "dd/mm/yyyy",
+                autoclose: true,
+                todayHighlight: "TRUE",
+            });
 
             /** Delete */
             $("body").on("click", ".btn--delete", function() {
