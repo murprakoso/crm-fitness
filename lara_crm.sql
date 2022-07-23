@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2022 at 05:44 PM
+-- Generation Time: Jul 23, 2022 at 10:25 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -57,10 +57,14 @@ CREATE TABLE `harga` (
 --
 
 INSERT INTO `harga` (`id`, `gender`, `keterangan`, `harga`, `created_at`, `updated_at`) VALUES
-(1, 'pria', 'P-Standar', '40000', '2022-07-10 14:29:48', '2022-07-10 14:29:48'),
-(2, 'pria', 'P-Spesial', '50000', '2022-07-10 14:30:00', '2022-07-10 14:30:00'),
-(3, 'wanita', 'W-Standar', '35000', '2022-07-10 14:30:11', '2022-07-10 14:30:11'),
-(4, 'wanita', 'W-Spesial', '45000', '2022-07-10 14:30:34', '2022-07-10 14:30:43');
+(1, 'pria', 'Harian GYM', '45000', NULL, NULL),
+(2, 'pria', 'Member GYM', '275000', NULL, NULL),
+(3, 'wanita', 'Harian GYM', '40000', NULL, NULL),
+(4, 'wanita', 'Member GYM', '150000', NULL, NULL),
+(5, 'pria', 'Harian CARDIO', '55000', NULL, NULL),
+(6, 'pria', 'Member CARDIO', '375000', NULL, NULL),
+(7, 'wanita', 'Harian CARDIO', '50000', NULL, NULL),
+(8, 'wanita', 'Member CARDIO', '250000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,15 +93,10 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `nama`, `alamat`, `gender`, `no_hp`, `foto`, `job`, `status`, `tipe_member`, `jenis_member`, `masa_tenggang`, `created_at`, `updated_at`) VALUES
-(1, 'Prasetyo Mandala', 'Jln. Sukabumi No. 899, Administrasi Jakarta Selatan 37640, Bengkulu', 'wanita', '6289524432340', NULL, 'Mahasiswa', '1', 'tetap', 'gym', '2022-08-10', '2022-07-10 14:27:59', '2022-07-14 13:06:30'),
-(2, 'Ika Kani Hariyah S.Pd', 'Gg. Baja No. 113, Pekanbaru 88883, Gorontalo', 'wanita', '6289524432340', NULL, 'Mahasiswa', '3', 'tetap', 'gym', '2022-07-10', '2022-07-10 14:27:59', '2022-07-10 14:55:53'),
-(3, 'Halim Saptono', 'Jln. Wahidin Sudirohusodo No. 857, Bekasi 55125, DIY', 'pria', '6289524432340', NULL, 'Wiraswasta', '3', 'harian', 'cardio', '2022-07-14', '2022-07-10 14:27:59', '2022-07-14 13:23:09'),
-(4, 'Gilang Lutfan Simbolon S.T.', 'Dk. Sadang Serang No. 64, Blitar 46422, Riau', 'pria', '6289524432340', NULL, 'Mahasiswa', '1', 'tetap', 'gym', '2022-08-01', '2022-07-10 14:27:59', '2022-07-10 14:56:22'),
-(5, 'Rendy Kasiran Mandala', 'Psr. Supomo No. 276, Banjarmasin 59319, Kaltim', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-10 14:27:59', '2022-07-10 14:27:59'),
-(6, 'Digdaya Bagiya Saefullah', 'Gg. Uluwatu No. 156, Lubuklinggau 88087, Sultra', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-10 14:27:59', '2022-07-10 14:27:59'),
-(7, 'Jamil Suwarno', 'Jr. Dewi Sartika No. 253, Probolinggo 10324, Sulut', 'pria', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-10 14:27:59', '2022-07-10 14:27:59'),
-(8, 'Laila Winarsih M.Kom.', 'Jr. Jambu No. 596, Parepare 40965, Jateng', 'wanita', '6289524432340', NULL, 'ASN', '1', 'tetap', 'cardio', '2022-08-01', '2022-07-10 14:27:59', '2022-07-10 14:46:04'),
-(9, 'Indah Irma Laksita', 'Ds. Padma No. 667, Pasuruan 68461, Sulut', 'wanita', '6289524432340', NULL, 'Wiraswasta', '1', 'tetap', 'gym', '2022-08-06', '2022-07-10 14:27:59', '2022-07-10 14:45:01');
+(5, 'HERMANSYAH', 'JL UJUNG PANDANG', 'pria', '6289514793069', NULL, 'DOSEN', '2', NULL, NULL, NULL, NULL, NULL),
+(6, 'ARI JIDAN', 'CAHAYA PAL', 'pria', '6285956132151', NULL, 'TRAINER', '2', NULL, NULL, NULL, NULL, NULL),
+(7, 'AGGRA', 'JL AMPERA', 'wanita', '6289514793069', NULL, 'TRAINER', '2', NULL, NULL, NULL, NULL, NULL),
+(8, 'ALYA', 'JL UJUNG PANDANG', 'wanita', '62895600008059', NULL, 'ADMIN ALFA', '2', 'tetap', 'gym', '2022-07-23', NULL, '2022-07-23 08:22:16');
 
 -- --------------------------------------------------------
 
@@ -126,7 +125,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2022_06_08_112421_add_phone_to_users', 1),
 (9, '2022_07_09_042437_create_transaksis_table', 1),
 (10, '2022_07_10_163441_add_status_to_members', 1),
-(13, '2022_07_14_205041_create_presensis_table', 2);
+(11, '2022_07_14_205041_create_presensis_table', 1);
 
 -- --------------------------------------------------------
 
@@ -177,7 +176,8 @@ CREATE TABLE `pesans` (
 --
 
 INSERT INTO `pesans` (`id`, `keterangan`, `pesan`, `created_at`, `updated_at`) VALUES
-(1, 'Pengingat', 'Ada sedang berada dalam masa tenggang', '2022-07-10 14:26:09', '2022-07-10 14:26:09');
+(1, 'Pengingat Jatuh Tempo', 'Halo pelanggan setia kami... salam sehat :)\\r\\nKami ingin memberitahukan bahwa masa aktif member anda akan segera berakhir, silahkan lakukan perpanjangan dan abaikan pesan jika sudah melakukan pembayaran. trimakasih :)', NULL, NULL),
+(2, 'informasi promo 17 agustus', 'Merdeka !!! untuk memperingati hari kemerdekaan Republik Indonesia AMgym mengadakan promo bagi member yang tanggal lahirnya pada hari kemerdekaan yaitu 17 Agustus dengan potongan harga member sebesar 50% !!! buruan daftar slot terbatass', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -192,14 +192,6 @@ CREATE TABLE `presensis` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `presensis`
---
-
-INSERT INTO `presensis` (`id`, `member_id`, `keterangan`, `created_at`, `updated_at`) VALUES
-(3, 1, 'Hadir', '2022-07-14 15:37:19', '2022-07-14 15:37:19'),
-(4, 3, 'Hadir', '2022-07-14 15:37:23', '2022-07-14 15:37:23');
 
 -- --------------------------------------------------------
 
@@ -224,13 +216,7 @@ CREATE TABLE `transaksis` (
 --
 
 INSERT INTO `transaksis` (`id`, `member_id`, `harga`, `tipe_member`, `jenis_member`, `tanggal_daftar`, `masa_tenggang`, `created_at`, `updated_at`) VALUES
-(1, 9, '35000', 'harian', 'cardio', '2022-07-10', '2022-07-10', '2022-07-10 14:41:13', '2022-07-10 14:41:13'),
-(3, 9, '50000', 'harian', 'gym', '2022-07-06', '2022-08-06', '2022-07-10 14:45:01', '2022-07-10 14:45:01'),
-(4, 8, '50000', 'harian', 'cardio', '2022-07-01', '2022-08-01', '2022-07-10 14:46:04', '2022-07-10 14:46:04'),
-(5, 4, '50000', 'harian', 'gym', '2022-06-10', '2022-07-10', '2022-07-10 14:47:41', '2022-07-10 14:47:41'),
-(6, 2, '50000', 'harian', 'gym', '2022-06-10', '2022-07-10', '2022-07-10 14:53:59', '2022-07-10 14:53:59'),
-(7, 4, '40000', 'harian', 'gym', '2022-07-01', '2022-08-01', '2022-07-10 14:56:22', '2022-07-10 14:56:22'),
-(8, 1, '50000', 'harian', 'gym', '2022-07-10', '2022-08-10', '2022-07-10 15:02:08', '2022-07-14 13:06:30');
+(2, 8, '40000', 'tetap', 'gym', '2022-06-23', '2022-07-23', '2022-07-23 07:42:46', '2022-07-23 07:42:46');
 
 -- --------------------------------------------------------
 
@@ -255,7 +241,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `phone`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Administrator', 'admin@test.com', NULL, '$2y$10$8xxfr.HC9gxSdlRDWqxBFuDzh1p1/AWRdaCAXZ22gow6sj7x11dVO', NULL, NULL, NULL, NULL);
+(1, 'Administrator', 'admin@test.com', NULL, '$2y$10$IJUN8BDtV8YqipwtLLYimuON7/Mryl0h1TsNDRgoIdhFl758KsqPm', '6281258008824', NULL, NULL, '2022-07-23 05:39:46');
 
 --
 -- Indexes for dumped tables
@@ -341,19 +327,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `harga`
 --
 ALTER TABLE `harga`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -365,19 +351,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `pesans`
 --
 ALTER TABLE `pesans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `presensis`
 --
 ALTER TABLE `presensis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
