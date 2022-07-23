@@ -19,6 +19,8 @@ class WaController extends Controller
             $members = Member::all();
         } else if ($request->ke == 'masa-tenggang') {
             $members = Member::tenggang()->get();
+        } else if ($request->ke == 'member') {
+            $members = Member::whereIn('id', $request->member)->get();
         }
 
         $params = [];

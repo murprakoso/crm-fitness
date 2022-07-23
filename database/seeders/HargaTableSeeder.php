@@ -15,25 +15,47 @@ class HargaTableSeeder extends Seeder
     public function run()
     {
         Harga::insert([
+            // gym
             [
                 'gender'     => 'pria',
-                'keterangan' => 'P-Standar',
-                'harga'      => '40000'
-            ],
-            [
-                'gender'     => 'pria',
-                'keterangan' => 'P-Spesial',
+                'keterangan' => 'Harian GYM',
                 'harga'      => '45000'
             ],
             [
+                'gender'     => 'pria',
+                'keterangan' => 'Member GYM',
+                'harga'      => '275000'
+            ],
+            [
                 'gender'     => 'wanita',
-                'keterangan' => 'W-Standar',
+                'keterangan' => 'Harian GYM',
+                'harga'      => '40000'
+            ],
+            [
+                'gender'     => 'wanita',
+                'keterangan' => 'Member GYM',
+                'harga'      => '150000'
+            ],
+            // cardio
+            [
+                'gender'     => 'pria',
+                'keterangan' => 'Harian CARDIO',
+                'harga'      => '55000'
+            ],
+            [
+                'gender'     => 'pria',
+                'keterangan' => 'Member CARDIO',
+                'harga'      => '375000'
+            ],
+            [
+                'gender'     => 'wanita',
+                'keterangan' => 'Harian CARDIO',
                 'harga'      => '50000'
             ],
             [
                 'gender'     => 'wanita',
-                'keterangan' => 'W-Standar',
-                'harga'      => '55000'
+                'keterangan' => 'Member CARDIO',
+                'harga'      => '250000'
             ],
         ]);
     }

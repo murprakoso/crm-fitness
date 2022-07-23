@@ -15,7 +15,7 @@ class HargaController extends Controller
      */
     public function index()
     {
-        $dataHarga = Harga::all();
+        $dataHarga = Harga::paginate(10);
         return view('harga.index', compact('dataHarga'));
     }
 
@@ -33,9 +33,9 @@ class HargaController extends Controller
     {
         $harga = [];
         if ($request->has('q')) {
-            $harga = Harga::select('harga', 'keterangan')->search($request->q)->get();
+            $harga = Harga::select('harga', 'keterangan', 'gender')->search($request->q)->get();
         } else {
-            $harga = Harga::select('harga', 'keterangan')->get();
+            $harga = Harga::select('harga', 'keterangan', 'gender')->get();
         }
         return response()->json($harga);
     }

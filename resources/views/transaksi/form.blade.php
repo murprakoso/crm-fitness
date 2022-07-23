@@ -44,7 +44,7 @@ $formTitle = empty($transaksi) ? 'Simpan' : 'Ubah';
                                     @php
                                         $tglSelected = !empty($transaksi) ? date('d/m/Y', strtotime($transaksi->tanggal_daftar)) : null;
                                     @endphp
-                                    {{ Form::text('tanggal_daftar', $tglSelected, ['class' => 'form-control', 'placeholder' => 'd/m/Y', 'required' => true]) }}
+                                    {{ Form::text('tanggal_daftar', $tglSelected, ['class' => 'form-control', 'placeholder' => 'd/m/Y', 'required' => true, 'autocomplete' => 'off']) }}
                                 </div>
                                 <div class="form-group">
                                     <label> Tipe Member</label>
@@ -87,6 +87,8 @@ $formTitle = empty($transaksi) ? 'Simpan' : 'Ubah';
 @push('js_script')
     <script>
         $(function() {
+            const capitalize = s => (s && s[0].toUpperCase() + s.slice(1)) || ""
+
             // Tanggal Daftar
             $('[name=tanggal_daftar]').datepicker({
                 format: "dd/mm/yyyy",
@@ -108,7 +110,7 @@ $formTitle = empty($transaksi) ? 'Simpan' : 'Ubah';
                         return {
                             results: $.map(data, function(item) {
                                 return {
-                                    text: `${item.harga} (${item.keterangan})`,
+                                    text: `${item.harga} (${capitalize(item.gender)} - ${item.keterangan})`,
                                     id: item.harga
                                 }
                             })

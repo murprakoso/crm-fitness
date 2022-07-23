@@ -43,6 +43,11 @@
                                                 <i class="ion ion-social-whatsapp"></i>
                                             </button>
                                             <div class="dropdown-menu">
+                                                <a class="dropdown-item btn--kirim-pesan" href="#"
+                                                    data-pesan="{{ $pesan->pesan }}" data-ke="member">
+                                                    Kirim ke ++
+                                                </a>
+                                                <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item btn--kirim-pesan-wa" href="#"
                                                     data-pesan="{{ $pesan->pesan }}" data-ke="semua">
                                                     Kirim ke semua member
@@ -95,23 +100,97 @@
 {{-- modal --}}
 @push('embed_modal')
     @include('layouts._modal-delete')
+    @include('pesan._modal')
 @endpush
 
-{{-- style --}}
+@include('vendor.select2.select2')
+{{-- @include('vendor.select2.style') --}}
+@include('vendor.toastr.toastr')
+
 @push('css_style')
     <style>
-        .table tr>td {
-            vertical-align: middle;
+        .select2-selection--multiple .select2-search__field {
+            width: 100% !important;
+            margin-left: .3rem !important;
         }
     </style>
 @endpush
-
-@include('vendor.toastr.toastr')
 
 {{-- script --}}
 @push('js_script')
     <script>
         $(function() {
+            /** Kirim pesan ke beberapa member */
+            $('.btn--kirim-pesan').click(function() {
+                $('#kirim-pesan-modal').modal('show')
+                let pesan = $(this).data('pesan');
+                $('#member-pesan').val(pesan)
+            })
+
+            $('#btn--kirim-ke-member').click(function() {
+                let formData = $('#member-form').serialize()
+                let pesanSelect = $('#member-select').val()
+                // validate on empty select member
+                if (pesanSelect == '') {
+                    return toastr.error('Silahkan pilih member.');
+                }
+
+                $.ajax({
+                    url: "{{ route('whatsapp.send') }}",
+                    type: "POST",
+                    data: formData,
+                    beforeSend: function() {
+                        $('#btn--kirim-ke-member').attr('disabled', true)
+                        $('.btn--kirim-text').text('Mengirim..');
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        $('#btn--kirim-ke-member').attr('disabled', false)
+                        $('.btn--kirim-text').text('Kirim');
+                        if (response.success === false) {
+                            return toastr.error(response.message);
+                        }
+                        toastr.success(response.message);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        toastr.warning(error.responseJSON.message);
+                    },
+                    complete: function() {
+                        $('#btn--kirim-ke-member').attr('disabled', false)
+                        $('.btn--kirim-text').text('Kirim');
+                    }
+                });
+            })
+
+            $('#kirim-pesan-modal').on('show.bs.modal', function() {
+                console.log('opened')
+                $('#member-select').select2({
+                    dropdownParent: $("#kirim-pesan-modal"),
+                    theme: "bootstrap4",
+                    placeholder: ' -- Pilih Member --',
+                    allowClear: true,
+                    tags: false,
+                    ajax: {
+                        url: "{{ route('member.select') }}",
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: `${item.nama}`,
+                                        id: item.id,
+                                        // tanggal_daftar: item.tanggal_daftar,
+                                        // masa_tenggang: item.masa_tenggang
+                                    }
+                                })
+                            };
+                        }
+                    }
+                })
+            })
+
             /** Delete */
             $("body").on("click", ".btn--delete", function() {
                 let url = $(this).data('url')
