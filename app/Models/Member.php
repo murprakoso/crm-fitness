@@ -70,10 +70,14 @@ class Member extends Model
      * Masa tenggang
      * default: 3 hari
      */
-    public function scopeTenggang($query, $masa = 3)
+    // public function scopeTenggang($query, $masa = 3)
+    // {
+    // $masaTenggang = date("Y-m-d", strtotime("+$masa day", strtotime(date('Y-m-d'))));
+    // return $query->where('masa_tenggang', '<=', $masaTenggang);
+    // }
+    public function scopeStatus($query, $status = 1)
     {
-        $masaTenggang = date("Y-m-d", strtotime("+$masa day", strtotime(date('Y-m-d'))));
-        return $query->where('masa_tenggang', '<=', $masaTenggang);
+        return $query->where('status', $status);
     }
 
     // public function scopeExpire($query, $masa = 0)

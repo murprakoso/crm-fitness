@@ -108,7 +108,7 @@ if (!function_exists('update_status_member')) {
 if (!function_exists('status_member_by_date')) {
     function status_member_by_date($expireDate)
     {
-        $tenggang = date("Y-m-d", strtotime("-3 day", strtotime(date('Y-m-d'))));
+        $tenggang = date("Y-m-d", strtotime("-2 day", strtotime(date('Y-m-d'))));
         $currDate = date('Y-m-d');
 
         // tidak aktif karena melewati masa tenggang

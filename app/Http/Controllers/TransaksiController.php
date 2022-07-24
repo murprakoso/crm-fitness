@@ -178,7 +178,7 @@ class TransaksiController extends Controller
     //1:aktif,2:tidak aktif,3:masa tenggang
     private function _status($expireDate)
     {
-        $tenggang = date("Y-m-d", strtotime("-3 day", strtotime(date('Y-m-d'))));
+        $tenggang = date("Y-m-d", strtotime("-2 day", strtotime(date('Y-m-d'))));
         $currDate = date('Y-m-d');
 
         // tidak aktif karena melewati masa tenggang

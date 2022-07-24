@@ -16,8 +16,8 @@ class HomeController extends Controller
         // $members = Member::select('nama')->where('masa_tenggang', '<=', $masaTenggang)->get();
 
         return view('home.index', [
-            'memberMasaTenggang' => Member::tenggang()->count(),
-            'memberMasaTenggangList' => Member::tenggang()->paginate(5),
+            'memberMasaTenggang' => Member::status(3)->count(),
+            'memberMasaTenggangList' => Member::status(3)->paginate(5),
             'statuses' => Member::statuses(),
             'memberAktif' => Member::tipe('tetap')->count(),
             'memberTerdaftar' => Member::all()->count(),
