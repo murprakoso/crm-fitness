@@ -70,7 +70,7 @@ class TransaksiController extends Controller
             ]);
 
             session()->flash('success', 'Transaksi berhasil ditambahkan.');
-            return redirect()->back();
+            return redirect()->route('transaksi.index');
         } catch (\Throwable $th) {
             session()->flash('error', 'Transaksi gagal ditambahkan. ' . $th->getMessage());
             return redirect()->back();
@@ -147,7 +147,7 @@ class TransaksiController extends Controller
             ]);
 
             session()->flash('success', 'Transaksi berhasil diubah.');
-            return redirect()->back();
+            return redirect()->route('transaksi.index');
         } catch (\Throwable $th) {
             session()->flash('error', 'Transaksi gagal diubah. ' . $th->getMessage());
             return redirect()->back();
