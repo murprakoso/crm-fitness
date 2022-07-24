@@ -51,7 +51,8 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         $input = $request->except('_token', 'nama');
-        $input['member_id'] = $request->nama;
+        $memberId = (int) $request->nama;
+        $input['member_id'] = $memberId;
         $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
         $input['tipe_member'] = $request->member;
 
@@ -62,7 +63,7 @@ class TransaksiController extends Controller
 
         try {
             Transaksi::create($input);
-            Member::find($request->nama)->update([
+            Member::find($memberId)->update([
                 'status'        => $this->_status($input['masa_tenggang']), //1:aktif,2:tidak aktif,3:masa tenggang
                 'tipe_member'   => $request->member,
                 'jenis_member'  => $request->jenis_member,
@@ -128,7 +129,8 @@ class TransaksiController extends Controller
     public function update(Request $request, Transaksi $transaksi)
     {
         $input = $request->except('_token', 'nama');
-        $input['member_id'] = $request->nama;
+        $memberId = (int) $request->nama;
+        $input['member_id'] = $memberId;
         $input['tanggal_daftar'] = date('Y-m-d', strtotime(str_replace("/", "-", $request->tanggal_daftar)));
         $input['tipe_member'] = $request->member;
 
@@ -139,7 +141,7 @@ class TransaksiController extends Controller
 
         try {
             $transaksi->update($input);
-            Member::find($request->nama)->update([
+            Member::find($memberId)->update([
                 'status'        => $this->_status($input['masa_tenggang']), //1:aktif,2:tidak aktif,3:masa tenggang
                 'tipe_member'   => $request->member,
                 'jenis_member'  => $request->jenis_member,
@@ -174,10 +176,17 @@ class TransaksiController extends Controller
     }
 
     //1:aktif,2:tidak aktif,3:masa tenggang
-    private function _status($tglDaftar)
+    private function _status($expireDate)
     {
+        $tenggang = date("Y-m-d", strtotime("-3 day", strtotime(date('Y-m-d'))));
         $currDate = date('Y-m-d');
-        if ($tglDaftar < $currDate) {
+
+        // tidak aktif karena melewati masa tenggang
+        if (($expireDate < $currDate) && ($expireDate <= $tenggang)) {
+            return 2;
+        }
+        // berada dalam masa tenggang 3 hari
+        elseif (($expireDate <= $currDate) && ($expireDate > $tenggang)) {
             return 3;
         }
         return 1;

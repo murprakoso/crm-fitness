@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Member;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
@@ -85,5 +86,39 @@ if (!function_exists('time_id')) {
     function time_id($timestamp, $format = 'h:i a')
     {
         return Carbon::parse($timestamp)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format($format);
+    }
+}
+
+
+/**
+ * Update Status member
+ */
+if (!function_exists('update_status_member')) {
+    function update_status_member()
+    {
+        // echo 'running';
+        // die;
+        $members = Member::all();
+        foreach ($members as $key => $member) {
+            $member->update(['status' => status_member_by_date($member->masa_tenggang)]);
+        }
+    }
+}
+
+if (!function_exists('status_member_by_date')) {
+    function status_member_by_date($expireDate)
+    {
+        $tenggang = date("Y-m-d", strtotime("-3 day", strtotime(date('Y-m-d'))));
+        $currDate = date('Y-m-d');
+
+        // tidak aktif karena melewati masa tenggang
+        if (($expireDate < $currDate) && ($expireDate <= $tenggang)) {
+            return 2;
+        }
+        // berada dalam masa tenggang 3 hari
+        elseif (($expireDate <= $currDate) && ($expireDate > $tenggang)) {
+            return 3;
+        }
+        return 1;
     }
 }

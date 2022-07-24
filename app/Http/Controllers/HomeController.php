@@ -14,7 +14,6 @@ class HomeController extends Controller
         // $masa = 3;
         // $masaTenggang = date("Y-m-d", strtotime("+$masa day", strtotime(date('Y-m-d'))));
         // $members = Member::select('nama')->where('masa_tenggang', '<=', $masaTenggang)->get();
-        $this->_updateStatusMember();
 
         return view('home.index', [
             'memberMasaTenggang' => Member::tenggang()->count(),
@@ -24,19 +23,5 @@ class HomeController extends Controller
             'memberTerdaftar' => Member::all()->count(),
             'memberHarian' => Member::tipe('harian')->count(),
         ]);
-    }
-
-    private function _updateStatusMember()
-    {
-        // member dalam masa tenggang
-        $members = Member::tenggang()->get();
-        foreach ($members as $key => $member) {
-            $member->update(['status' => 3]); // 3:masa tenggang
-        }
-        // member expire
-        $membersEx = Member::expire()->get();
-        foreach ($membersEx as $key => $member) {
-            $member->update(['status' => 2]); // 2:tidak aktif
-        }
     }
 }

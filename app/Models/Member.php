@@ -76,9 +76,9 @@ class Member extends Model
         return $query->where('masa_tenggang', '<=', $masaTenggang);
     }
 
-    public function scopeExpire($query, $masa = 1)
-    {
-        $masaExpire = date("Y-m-d", strtotime("+$masa day", strtotime(date('Y-m-d'))));
-        return $query->where('masa_tenggang', '<=', $masaExpire);
-    }
+    // public function scopeExpire($query, $masa = 0)
+    // {
+    //     $masaExpire = date("Y-m-d", strtotime("+$masa day", strtotime(date('Y-m-d'))));
+    //     return $query->where('masa_tenggang', '<=', $masaExpire);
+    // }
 }
