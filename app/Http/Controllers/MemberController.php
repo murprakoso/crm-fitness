@@ -64,7 +64,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('member.form');
+        return view('member.form', ['jobs' => Member::jobs()]);
     }
 
     /**
@@ -127,7 +127,7 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        return view('member.form', ['member' => $member]);
+        return view('member.form', ['member' => $member, 'jobs' => Member::jobs()]);
     }
 
     /**

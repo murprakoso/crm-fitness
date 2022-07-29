@@ -61,7 +61,8 @@ $formTitle = !empty($member) ? 'Ubah' : 'Tambah';
 
                         <div class="form-group">
                             {!! Form::label('job', 'Job') !!}
-                            {!! Form::text('job', null, ['class' => 'form-control', 'placeholder' => 'Job']) !!}
+                            {{-- {!! Form::text('job', null, ['class' => 'form-control', 'placeholder' => 'Job']) !!} --}}
+                            {{ Form::select('job', $jobs, null, ['class' => 'form-control', 'style' => 'width:100%;', 'required' => true, 'placeholder' => '-- Pilih/Ketik Job --']) }}
                         </div>
 
                         <button class="btn btn-primary" type="submit">
@@ -128,6 +129,14 @@ $formTitle = !empty($member) ? 'Ubah' : 'Tambah';
                     }
                 }
             });
+
+            // input job
+            $('[name=job]').select2({
+                theme: "bootstrap4",
+                placeholder: ' -- Pilih/Ketik Job --',
+                allowClear: true,
+                tags: true,
+            })
 
 
             function readURL(input) {
