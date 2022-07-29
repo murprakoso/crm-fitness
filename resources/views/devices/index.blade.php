@@ -117,7 +117,7 @@
             $('#btn--scan').click(function() {
 
                 $.ajax({
-                    url: "{{ env('WA_URL') }}/sessions/add",
+                    url: "{{ env('NODE_WA_URL') }}/sessions/add",
                     type: "POST",
                     data: {
                         id: sessionId,
@@ -174,7 +174,7 @@
             /** Btn cek session */
             $('#btn--cek-session').click(function() {
                 $.ajax({
-                    url: `{{ env('WA_URL') }}/sessions/status/${sessionId}`,
+                    url: `{{ env('NODE_WA_URL') }}/sessions/status/${sessionId}`,
                     type: "GET",
                     beforeSend: function() {
                         $('#btn--cek-session').attr('disabled', 'disabled');
@@ -208,7 +208,7 @@
             /** Btn delete session */
             $('#btn--delete-session').click(function() {
                 $.ajax({
-                    url: `{{ env('WA_URL') }}/sessions/delete/${sessionId}`,
+                    url: `{{ env('NODE_WA_URL') }}/sessions/delete/${sessionId}`,
                     type: "DELETE",
                     beforeSend: function() {
                         $('#btn--delete-session').attr('disabled', 'disabled');
