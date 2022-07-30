@@ -7,6 +7,7 @@
     },
     "scripts": {
         "dev": "nodemon server",
+        "start": "node server",
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
