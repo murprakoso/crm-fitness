@@ -21,6 +21,8 @@ class WaController extends Controller
             $members = Member::status(3)->get();
         } else if ($request->ke == 'member') {
             $members = Member::whereIn('id', $request->member)->get();
+        } else if ($request->ke == 'job') {
+            $members = Member::job($request->job)->get();
         }
 
         $params = [];

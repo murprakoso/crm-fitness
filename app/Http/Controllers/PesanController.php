@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use App\Models\Pesan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,8 @@ class PesanController extends Controller
     public function index()
     {
         $pesans = Pesan::paginate(10);
-        return view('pesan.index', compact('pesans'));
+        $jobs = Member::jobs();
+        return view('pesan.index', compact('pesans', 'jobs'));
     }
 
     /**

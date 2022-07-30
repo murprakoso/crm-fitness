@@ -57,18 +57,8 @@
                                                     data-pesan="{{ $pesan->pesan }}" data-ke="masa-tenggang">
                                                     Dalam masa tenggang
                                                 </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item btn--on-develop" href="#"
-                                                    data-pesan="{{ $pesan->pesan }}" data-ke="mahasiswa">
-                                                    Job: Mahasiswa
-                                                </a>
                                             </div>
                                         </div>
-
-                                        {{-- <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Kirim ke semua member" href="#">
-                                                    Kirim ke semua member
-                                                </a> --}}
 
                                         <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"
                                             href="{{ route('pesan.edit', $pesan) }}">
@@ -120,18 +110,59 @@
 @push('js_script')
     <script>
         $(function() {
+            /** Modal */
             /** Kirim pesan ke beberapa member */
             $('.btn--kirim-pesan').click(function() {
                 $('#kirim-pesan-modal').modal('show')
                 let pesan = $(this).data('pesan');
                 $('#member-pesan').val(pesan)
+                $('#job-pesan').val(pesan)
             })
 
+            $('#kirim-pesan-modal').on('show.bs.modal', function() {
+                console.log('opened')
+                // member
+                $('#member-select').select2({
+                    dropdownParent: $("#kirim-pesan-modal"),
+                    theme: "bootstrap4",
+                    placeholder: ' -- Pilih Member --',
+                    allowClear: true,
+                    tags: false,
+                    ajax: {
+                        url: "{{ route('member.select') }}",
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: `${item.nama}`,
+                                        id: item.id,
+                                        // tanggal_daftar: item.tanggal_daftar,
+                                        // masa_tenggang: item.masa_tenggang
+                                    }
+                                })
+                            };
+                        }
+                    }
+                })
+
+                // job select
+                $('[name=job]').select2({
+                    dropdownParent: $("#kirim-pesan-modal"),
+                    theme: "bootstrap4",
+                    placeholder: ' -- Pilih Job --',
+                    allowClear: true,
+                    tags: false,
+                })
+            })
+
+            // kirim ke member
             $('#btn--kirim-ke-member').click(function() {
                 let formData = $('#member-form').serialize()
-                let pesanSelect = $('#member-select').val()
+                let memberSelect = $('#member-select').val()
                 // validate on empty select member
-                if (pesanSelect == '') {
+                if (memberSelect == '') {
                     return toastr.error('Silahkan pilih member.');
                 }
 
@@ -163,33 +194,44 @@
                 });
             })
 
-            $('#kirim-pesan-modal').on('show.bs.modal', function() {
-                console.log('opened')
-                $('#member-select').select2({
-                    dropdownParent: $("#kirim-pesan-modal"),
-                    theme: "bootstrap4",
-                    placeholder: ' -- Pilih Member --',
-                    allowClear: true,
-                    tags: false,
-                    ajax: {
-                        url: "{{ route('member.select') }}",
-                        dataType: 'json',
-                        delay: 250,
-                        processResults: function(data) {
-                            return {
-                                results: $.map(data, function(item) {
-                                    return {
-                                        text: `${item.nama}`,
-                                        id: item.id,
-                                        // tanggal_daftar: item.tanggal_daftar,
-                                        // masa_tenggang: item.masa_tenggang
-                                    }
-                                })
-                            };
+            // kirim ke job
+            $('#btn--kirim-ke-job').click(function() {
+                let formData = $('#job-form').serialize()
+                let jobSelect = $('#job-select').val()
+
+                if (jobSelect == '') {
+                    return toastr.error('Silahkan pilih job.');
+                }
+
+                $.ajax({
+                    url: "{{ route('whatsapp.send') }}",
+                    type: "POST",
+                    data: formData,
+                    beforeSend: function() {
+                        $('#btn--kirim-ke-job').attr('disabled', true)
+                        $('.btn--kirim-text-job').text('Mengirim..');
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        $('#btn--kirim-ke-job').attr('disabled', false)
+                        $('.btn--kirim-text-job').text('Kirim');
+                        if (response.success === false) {
+                            return toastr.error(response.message);
                         }
+                        toastr.success(response.message);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        toastr.warning(error.responseJSON.message);
+                    },
+                    complete: function() {
+                        $('#btn--kirim-ke-job').attr('disabled', false)
+                        $('.btn--kirim-text-job').text('Kirim');
                     }
-                })
+                });
             })
+            /** ./Modal */
+
 
             /** Delete */
             $("body").on("click", ".btn--delete", function() {
@@ -242,11 +284,6 @@
                         $('.btn--pesan-wa').show();
                     }
                 });
-            })
-
-            /** on develop */
-            $('.btn--on-develop').click(function() {
-                toastr.warning('Masih dalam pengembangan.')
             })
 
         })

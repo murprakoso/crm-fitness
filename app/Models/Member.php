@@ -66,6 +66,11 @@ class Member extends Model
         return $query->where('jenis_member', '=', "$jenis");
     }
 
+    public function scopeJob($query, $job)
+    {
+        return $query->where('job', '=', "$job");
+    }
+
     /**
      * Masa tenggang
      * default: 3 hari
