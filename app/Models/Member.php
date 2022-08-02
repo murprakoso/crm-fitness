@@ -15,7 +15,7 @@ class Member extends Model
     {
         return [
             'Mahasiswa' => 'Mahasiswa',
-            'PNS' => 'PNS'
+            'IRT' => 'IRT'
         ];
     }
 
