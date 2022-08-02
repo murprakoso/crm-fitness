@@ -17,12 +17,12 @@ class WaController extends Controller
         $members = [];
         if ($request->ke == 'semua') {
             $members = Member::all();
-        } else if ($request->ke == 'masa-tenggang') {
-            $members = Member::status(3)->get();
         } else if ($request->ke == 'member') {
             $members = Member::whereIn('id', $request->member)->get();
         } else if ($request->ke == 'job') {
             $members = Member::job($request->job)->get();
+        } else if ($request->ke == 'status') {
+            $members = Member::status($request->status)->get();
         }
 
         $params = [];

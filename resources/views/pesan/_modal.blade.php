@@ -10,16 +10,22 @@
             <div class="modal-body">
 
                 <ul class="nav nav-tabs text-center font-weight-bold row col-12" id="myTab" role="tablist">
-                    <li class="nav-item col-6 pr-0" role="presentation">
+                    <li class="nav-item col-4 pr-0" role="presentation">
                         <a class="nav-link active" id="member-tab" data-toggle="tab" href="#member" role="tab"
                             aria-controls="member" aria-selected="true">
                             Member
                         </a>
                     </li>
-                    <li class="nav-item col-6 px-0" role="presentation">
+                    <li class="nav-item col-4 px-0" role="presentation">
                         <a class="nav-link" id="job-tab" data-toggle="tab" href="#job" role="tab"
                             aria-controls="job" aria-selected="false">
                             Job
+                        </a>
+                    </li>
+                    <li class="nav-item col-4 px-0" role="presentation">
+                        <a class="nav-link" id="status-tab" data-toggle="tab" href="#status" role="tab"
+                            aria-controls="status" aria-selected="false">
+                            Status
                         </a>
                     </li>
                 </ul>
@@ -45,7 +51,7 @@
                             <button type="button" class="btn btn-primary" id="btn--kirim-ke-member">
                                 <i class="ion ion-social-whatsapp"></i>
                                 <span class="btn--kirim-text">
-                                    Kirim 1
+                                    Kirim
                                 </span>
                             </button>
                         </div>
@@ -74,6 +80,31 @@
                             </button>
                         </div>
                     </div>
+
+                    {{-- Status tab --}}
+                    <div class="tab-pane fade" id="status" role="tabpanel" aria-labelledby="status-tab">
+                        <form id="status-form">
+                            @csrf
+                            <input type="hidden" name="ke" value="status">
+                            <input type="hidden" name="pesan" id="status-pesan">
+
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                {{ Form::select('status', $statuses, null, ['class' => 'form-control', 'id' => 'status-select', 'style' => 'width:100%;', 'required' => true, 'placeholder' => '-- Pilih Status --']) }}
+                            </div>
+                        </form>
+
+                        <div class="float-right mt-5">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-primary" id="btn--kirim-ke-status">
+                                <i class="ion ion-social-whatsapp"></i>
+                                <span class="btn--kirim-text-status">
+                                    Kirim
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

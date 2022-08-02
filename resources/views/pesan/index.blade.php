@@ -52,11 +52,16 @@
                                                     data-pesan="{{ $pesan->pesan }}" data-ke="semua">
                                                     Kirim ke semua member
                                                 </a>
-                                                <div class="dropdown-divider"></div>
+                                                {{-- <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item btn--kirim-pesan-wa" href="#"
                                                     data-pesan="{{ $pesan->pesan }}" data-ke="masa-tenggang">
                                                     Dalam masa tenggang
                                                 </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item btn--kirim-pesan-wa" href="#"
+                                                    data-pesan="{{ $pesan->pesan }}" data-ke="member-tidak-aktif">
+                                                    Member tidak aktif
+                                                </a> --}}
                                             </div>
                                         </div>
 
@@ -227,6 +232,43 @@
                     complete: function() {
                         $('#btn--kirim-ke-job').attr('disabled', false)
                         $('.btn--kirim-text-job').text('Kirim');
+                    }
+                });
+            })
+
+            // btn--kirim-ke-status
+            $('#btn--kirim-ke-status').click(function() {
+                let formData = $('#status-form').serialize()
+                let statusSelect = $('#status-select').val()
+
+                if (statusSelect == '') {
+                    return toastr.error('Silahkan pilih status.');
+                }
+
+                $.ajax({
+                    url: "{{ route('whatsapp.send') }}",
+                    type: "POST",
+                    data: formData,
+                    beforeSend: function() {
+                        $('#btn--kirim-ke-status').attr('disabled', true)
+                        $('.btn--kirim-text-status').text('Mengirim..');
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        $('#btn--kirim-ke-status').attr('disabled', false)
+                        $('.btn--kirim-text-status').text('Kirim');
+                        if (response.success === false) {
+                            return toastr.error(response.message);
+                        }
+                        toastr.success(response.message);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        toastr.warning(error.responseJSON.message);
+                    },
+                    complete: function() {
+                        $('#btn--kirim-ke-status').attr('disabled', false)
+                        $('.btn--kirim-text-status').text('Kirim');
                     }
                 });
             })

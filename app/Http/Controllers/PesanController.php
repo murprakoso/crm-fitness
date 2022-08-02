@@ -18,7 +18,8 @@ class PesanController extends Controller
     {
         $pesans = Pesan::paginate(10);
         $jobs = Member::jobs();
-        return view('pesan.index', compact('pesans', 'jobs'));
+        $statuses = Member::statuses();
+        return view('pesan.index', compact('pesans', 'jobs', 'statuses'));
     }
 
     /**

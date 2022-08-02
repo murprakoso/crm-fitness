@@ -9,7 +9,8 @@
 
     <title>@yield('title', 'Home')</title>
 
-    <link rel="icon" href="data:,">
+    {{-- <link rel="icon" href="data:,"> --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.png') }}">
 
     <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/modules/ionicons/css/ionicons.min.css') }}">
@@ -126,8 +127,7 @@
                                 {{ __('Logout') }}
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                class="d-none">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>
