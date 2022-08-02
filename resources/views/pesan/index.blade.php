@@ -122,6 +122,7 @@
                 let pesan = $(this).data('pesan');
                 $('#member-pesan').val(pesan)
                 $('#job-pesan').val(pesan)
+                $('#status-pesan').val(pesan)
             })
 
             $('#kirim-pesan-modal').on('show.bs.modal', function() {

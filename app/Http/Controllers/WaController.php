@@ -13,6 +13,7 @@ class WaController extends Controller
         $pesan = $request->pesan;
         $sessionId = (int) User::find(auth()->user()->id)->phone;
         $url = env('NODE_WA_URL') . '/chats/send-bulk?id=' . $sessionId;
+        // $url = env('NODE_WA_URL') . '/chats/send?id=' . $sessionId;
 
         $members = [];
         if ($request->ke == 'semua') {
@@ -23,6 +24,9 @@ class WaController extends Controller
             $members = Member::job($request->job)->get();
         } else if ($request->ke == 'status') {
             $members = Member::status($request->status)->get();
+            if ($members->count() < 1) {
+                return response()->json(['success' => false, 'message' => 'Tidak ada member dengan status yang dipilih.']);
+            }
         }
 
         $params = [];
@@ -31,13 +35,27 @@ class WaController extends Controller
                 'receiver' => $val->no_hp,
                 'message' => $pesan
             ];
+
+            //
+            // $data = json_encode([
+            //     'receiver' => $val->no_hp,
+            //     'message'  => $pesan
+            // ]);
+
+            // $this->curl_request('POST', $url, $data);
         }
 
-        $data = json_encode($params);
-
+        // print("<pre>" . print_r($params, true) . "</pre>");
+        // die;
         # curl send wa
-        $res = $this->curl_request('POST', $url, $data);
+        $res = $this->curl_request('POST', $url, json_encode($params));
         return response()->json($res);
+
+        //
+        // $res = [
+        //     'message' => 'Berhasil dikirim'
+        // ];
+        // return response()->json($res);
     }
 
 
