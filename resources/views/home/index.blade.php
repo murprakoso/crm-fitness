@@ -15,70 +15,34 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-sm-3">
-                    <div class="card-icon bg-primary">
-                        <i class="ion ion-ios-bookmarks"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Member Terdaftar</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $memberTerdaftar }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-sm-3">
-                    <div class="card-icon bg-danger">
-                        <i class="ion ion-android-contacts"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Member Aktif (Tetap)</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $memberAktif }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-sm-3">
-                    <div class="card-icon bg-warning">
-                        <i class="ion ion-ios-stopwatch"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Member Masa Tenggang</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $memberMasaTenggang }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-sm-3">
-                    <div class="card-icon bg-success">
-                        <i class="ion ion-ios-list"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Member Harian</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $memberHarian }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            @include('home.widget')
         </div>
 
+        {{-- Grafik #row-2 --}}
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Grafik Pendaftaran Member Per-Bulan, Tahun {{ date_id(date('Y-m-d'), 'Y') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Grafik Segmentasi Job Member Per-Bulan {{ date_id(date('Y-m-d'), 'MMMM') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart4"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        {{-- #row-3 --}}
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -144,3 +108,80 @@
 
     </section>
 @endsection
+
+
+@push('js_script')
+    <script src="{{ asset('dist/modules/chart.min.js') }}"></script>
+    <script>
+        /** Bar Chart */
+        var ctx = document.getElementById("myChart2").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                // labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                labels: {!! $labelMonth !!},
+                datasets: [{
+                    label: 'Member',
+                    // data: [460, 458, 330, 700, 430, 610, 488],
+                    data: {!! $dataMembers !!},
+                    borderWidth: 2,
+                    backgroundColor: 'rgb(87,75,144)',
+                    borderColor: 'rgb(87,75,144)',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#ffffff',
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            // stepSize: 2,
+                            maxTicksLimit: 5,
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                },
+            }
+        });
+
+        /** Pie Chart */
+        var ctx = document.getElementById("myChart4").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    // data: [ 80, 50, 40, 30, 20, ],
+                    data: {!! $dataMemberJobs !!},
+                    backgroundColor: [
+                        '#574B90',
+                        '#28a745',
+                        '#6c757d',
+                        // '#dc3545',
+                        // '#343a40',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                // labels: [ 'Purple', 'Green', 'Yellow', 'Red', 'Black' ],
+                labels: {!! $labelJobs !!},
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+    </script>
+@endpush

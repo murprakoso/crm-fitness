@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2022 at 10:25 AM
+-- Generation Time: Aug 05, 2022 at 09:25 PM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -93,10 +93,35 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `nama`, `alamat`, `gender`, `no_hp`, `foto`, `job`, `status`, `tipe_member`, `jenis_member`, `masa_tenggang`, `created_at`, `updated_at`) VALUES
-(5, 'HERMANSYAH', 'JL UJUNG PANDANG', 'pria', '6289514793069', NULL, 'DOSEN', '2', NULL, NULL, NULL, NULL, NULL),
-(6, 'ARI JIDAN', 'CAHAYA PAL', 'pria', '6285956132151', NULL, 'TRAINER', '2', NULL, NULL, NULL, NULL, NULL),
-(7, 'AGGRA', 'JL AMPERA', 'wanita', '6289514793069', NULL, 'TRAINER', '2', NULL, NULL, NULL, NULL, NULL),
-(8, 'ALYA', 'JL UJUNG PANDANG', 'wanita', '62895600008059', NULL, 'ADMIN ALFA', '2', 'tetap', 'gym', '2022-07-23', NULL, '2022-07-23 08:22:16');
+(5, 'HERMANSYAH', 'JL UJUNG PANDANG', 'pria', '6289524432340', NULL, 'DOSEN', '2', NULL, NULL, '1970-01-01', '2022-05-29 19:52:06', '2022-07-29 19:58:52'),
+(6, 'ARI JIDAN', 'CAHAYA PAL', 'pria', '6285956132151', NULL, 'TRAINER', '2', 'tetap', 'gym', '2022-07-24', '2022-05-29 19:52:06', '2022-07-29 19:07:38'),
+(7, 'AGGRA', 'JL AMPERA', 'wanita', '6289514793069', NULL, 'TRAINER', '1', 'tetap', 'gym', '2022-08-21', '2022-07-29 19:52:06', '2022-07-24 09:06:13'),
+(8, 'ALYA', 'JL UJUNG PANDANG', 'wanita', '62895600008059', NULL, 'ADMIN ALFA', '2', 'tetap', 'gym', '2022-07-24', '2022-07-29 19:52:06', '2022-07-29 19:07:38'),
+(9, 'Eko Murdianto Prakoso', 'Pontianak', 'pria', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, '1970-01-01', '2022-06-29 19:52:06', '2022-07-29 20:50:48'),
+(10, 'Paman Yoko', 'Pontianak', 'pria', '6281257466118', NULL, 'PNS', '2', NULL, NULL, '1970-01-01', '2022-07-29 20:55:41', '2022-07-30 06:59:15'),
+(11, 'Bang Patel', 'Pontianak', 'pria', '628952443234000', NULL, 'Mahasiswa', '2', NULL, NULL, '1970-01-01', '2022-07-30 08:01:59', '2022-08-05 10:43:25'),
+(12, 'Wulan Gunarto', 'Dk. Teuku Umar No. 360, Bogor 16675, NTB', 'pria', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2023-03-06 17:52:06', '2022-08-05 18:32:19'),
+(13, 'Jaya Hakim', 'Ki. Baja Raya No. 623, Balikpapan 62927, Aceh', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-08-01 07:52:06', '2022-08-05 18:32:19'),
+(14, 'Mursinin Santoso', 'Jln. Bakin No. 231, Pekanbaru 98378, Sulteng', 'pria', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2022-10-05 16:52:06', '2022-08-05 18:32:19'),
+(15, 'Uchita Pertiwi', 'Ki. Imam No. 97, Ambon 14014, DIY', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-12-04 05:52:06', '2022-08-05 18:32:19'),
+(16, 'Kanda Jailani', 'Psr. Cut Nyak Dien No. 728, Administrasi Jakarta Timur 27207, DIY', 'pria', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2022-08-04 14:52:06', '2022-08-05 18:32:19'),
+(17, 'Kiandra Wijaya', 'Ds. Jakarta No. 18, Pasuruan 78626, Jatim', 'wanita', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2023-02-02 13:52:06', '2022-08-05 18:32:19'),
+(18, 'Yuni Nuraini', 'Ki. Bagonwoto  No. 46, Gunungsitoli 59500, Sumsel', 'wanita', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2022-12-04 01:52:06', '2022-08-05 18:32:19'),
+(19, 'Zahra Mansur', 'Psr. Suharso No. 714, Depok 46213, Jatim', 'wanita', '6289524432340', NULL, 'IRT', '2', NULL, NULL, NULL, '2022-08-03 09:52:06', '2022-08-05 18:32:19'),
+(20, 'Umi Wijaya', 'Ki. Bawal No. 239, Kediri 60980, Kalbar', 'pria', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-10-31 11:52:06', '2022-08-05 18:32:19'),
+(21, 'Cahyadi Suryatmi', 'Kpg. Bakit  No. 948, Ambon 46332, Malut', 'pria', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2023-03-03 18:52:06', '2022-08-05 18:32:19'),
+(22, 'Diah Simanjuntak', 'Jr. Yogyakarta No. 582, Administrasi Jakarta Timur 92380, Jatim', 'wanita', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2022-08-05 13:52:06', '2022-08-05 18:32:19'),
+(23, 'Elisa Kusumo', 'Ds. Kiaracondong No. 700, Banjar 84278, Bengkulu', 'wanita', '6289524432340', NULL, 'IRT', '2', NULL, NULL, NULL, '2023-01-05 17:52:06', '2022-08-05 18:32:19'),
+(24, 'Jefri Setiawan', 'Dk. Bakit  No. 182, Tidore Kepulauan 74115, DIY', 'pria', '6289524432340', NULL, 'IRT', '2', NULL, NULL, NULL, '2022-10-02 00:52:06', '2022-08-05 18:32:19'),
+(25, 'Raditya Kusumo', 'Dk. Salatiga No. 306, Gorontalo 15542, Sulut', 'wanita', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2022-08-30 22:52:06', '2022-08-05 18:32:19'),
+(26, 'Jessica Setiawan', 'Ds. Gading No. 547, Ternate 26416, NTB', 'wanita', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2023-03-05 14:52:06', '2022-08-05 18:32:19'),
+(27, 'Nadia Anggriawan', 'Dk. Adisucipto No. 472, Cimahi 57521, Jateng', 'wanita', '6289524432340', NULL, 'IRT', '2', NULL, NULL, NULL, '2022-11-04 08:52:06', '2022-08-05 18:32:19'),
+(28, 'Nilam Kuswoyo', 'Gg. Babah No. 182, Kediri 48471, Jatim', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-01 13:52:06', '2022-08-05 18:32:19'),
+(29, 'Suci Wahyuni', 'Dk. Agus Salim No. 30, Madiun 51691, Banten', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-10-01 05:52:06', '2022-08-05 18:32:19'),
+(30, 'Olivia Pradipta', 'Psr. Jend. A. Yani No. 476, Mojokerto 11297, Banten', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-04 22:52:06', '2022-08-05 18:32:19'),
+(31, 'Titin Nuraini', 'Kpg. Abdul Rahmat No. 712, Pekanbaru 65772, DKI', 'wanita', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-12-01 17:52:06', '2022-08-05 18:32:19'),
+(32, 'Okto Saragih', 'Kpg. Dr. Junjunan No. 544, Kediri 96563, Kaltara', 'pria', '6289524432340', NULL, 'Mahasiswa', '2', NULL, NULL, NULL, '2022-11-05 11:52:06', '2022-08-05 18:32:19'),
+(33, 'Galang Kusmawati', 'Ds. B.Agam 1 No. 297, Makassar 14762, Sumut', 'pria', '6289524432340', NULL, 'Wiraswasta', '2', NULL, NULL, NULL, '2022-07-31 05:52:06', '2022-08-05 18:32:19');
 
 -- --------------------------------------------------------
 
@@ -125,7 +150,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2022_06_08_112421_add_phone_to_users', 1),
 (9, '2022_07_09_042437_create_transaksis_table', 1),
 (10, '2022_07_10_163441_add_status_to_members', 1),
-(11, '2022_07_14_205041_create_presensis_table', 1);
+(11, '2022_07_14_205041_create_presensis_table', 1),
+(12, '2022_08_05_224039_add_status_to_pesans', 2);
 
 -- --------------------------------------------------------
 
@@ -167,6 +193,7 @@ CREATE TABLE `pesans` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `keterangan` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pesan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('1','2','3') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -175,9 +202,14 @@ CREATE TABLE `pesans` (
 -- Dumping data for table `pesans`
 --
 
-INSERT INTO `pesans` (`id`, `keterangan`, `pesan`, `created_at`, `updated_at`) VALUES
-(1, 'Pengingat Jatuh Tempo', 'Halo pelanggan setia kami... salam sehat :)\\r\\nKami ingin memberitahukan bahwa masa aktif member anda akan segera berakhir, silahkan lakukan perpanjangan dan abaikan pesan jika sudah melakukan pembayaran. trimakasih :)', NULL, NULL),
-(2, 'informasi promo 17 agustus', 'Merdeka !!! untuk memperingati hari kemerdekaan Republik Indonesia AMgym mengadakan promo bagi member yang tanggal lahirnya pada hari kemerdekaan yaitu 17 Agustus dengan potongan harga member sebesar 50% !!! buruan daftar slot terbatass', NULL, NULL);
+INSERT INTO `pesans` (`id`, `keterangan`, `pesan`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Pengingat Jatuh Tempo', '*Halo pelanggan setia kami*... salam sehat :) \\r\\n Kami ingin memberitahukan bahwa masa aktif member anda akan segera berakhir, silahkan lakukan perpanjangan dan abaikan pesan jika sudah melakukan pembayaran. trimakasih :)', '1', NULL, '2022-08-05 16:39:03'),
+(2, 'informasi promo 17 agustus', 'Merdeka !!! untuk memperingati hari kemerdekaan Republik Indonesia AMgym mengadakan promo bagi member yang tanggal lahirnya pada hari kemerdekaan yaitu 17 Agustus dengan potongan harga member sebesar 50% !!! buruan daftar slot terbatass', NULL, NULL, NULL),
+(3, 'Member Tidak Aktif', 'Test kirim wa ke member tidak aktif', '2', '2022-08-05 15:50:33', '2022-08-05 16:46:15'),
+(4, 'Incidunt ut commodo', 'Dolore nihil volupta', '1', '2022-08-05 16:01:14', '2022-08-05 16:37:30'),
+(5, 'Incidunt ut commodo', 'Test kirim wa ke member masa tenggang', '3', '2022-08-05 16:01:28', '2022-08-05 16:45:40'),
+(6, 'test pesan baru', 'asdfasdfasdf', '3', '2022-08-05 16:01:43', '2022-08-05 16:01:43'),
+(7, 'test pesan baru', 'asdfasdfasdf', '2', '2022-08-05 16:01:49', '2022-08-05 16:01:49');
 
 -- --------------------------------------------------------
 
@@ -216,7 +248,9 @@ CREATE TABLE `transaksis` (
 --
 
 INSERT INTO `transaksis` (`id`, `member_id`, `harga`, `tipe_member`, `jenis_member`, `tanggal_daftar`, `masa_tenggang`, `created_at`, `updated_at`) VALUES
-(2, 8, '40000', 'tetap', 'gym', '2022-06-23', '2022-07-23', '2022-07-23 07:42:46', '2022-07-23 07:42:46');
+(10, 6, '275000', 'tetap', 'gym', '2022-06-24', '2022-07-24', '2022-07-24 08:51:44', '2022-07-24 08:51:44'),
+(11, 7, '275000', 'tetap', 'gym', '2022-07-21', '2022-08-21', '2022-07-24 09:06:13', '2022-07-24 09:06:13'),
+(12, 8, '275000', 'tetap', 'gym', '2022-06-24', '2022-07-24', '2022-07-24 09:07:48', '2022-07-24 09:08:33');
 
 -- --------------------------------------------------------
 
@@ -333,13 +367,13 @@ ALTER TABLE `harga`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -351,7 +385,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `pesans`
 --
 ALTER TABLE `pesans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `presensis`
@@ -363,7 +397,7 @@ ALTER TABLE `presensis`
 -- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
