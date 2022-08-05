@@ -137,5 +137,46 @@ router
             { errors }
         )
     })
+    // send bulk pada localhost
+    .post('/chats/send-bulk2', query('id').notEmpty(), requestValidator, sessionValidator, async (req, res) => {
+        const session = getSession(res.locals.sessionId)
+        let errors = []
+
+        let dataEntries = req.body
+
+        dataEntries.map(async (data, key) => {
+            if (!data.receiver || !data.message) {
+                errors.push(key)
+            }
+
+            data.receiver = formatPhone(data.receiver)
+
+            try {
+                const exists = await isExists(session, data.receiver)
+
+                if (!exists) {
+                    errors.push(key)
+                }
+
+                await sendMessage(session, data.receiver, { text: data.message })
+            } catch (error) {
+                console.log(error)
+            }
+        })
+
+        if (errors.length === 0) {
+            return response(res, 200, true, 'Semua pesan telah berhasil terkirim.')
+        }
+
+        const isAllFailed = errors.length === req.body.length
+
+        response(
+            res,
+            isAllFailed ? 500 : 200,
+            !isAllFailed,
+            isAllFailed ? 'Gagal mengirim semua pesan.' : 'Beberapa pesan telah berhasil dikirim.',
+            { errors }
+        )
+    })
 
 export default router

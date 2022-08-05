@@ -12,8 +12,9 @@ class WaController extends Controller
     {
         $pesan = $request->pesan;
         $sessionId = (int) User::find(auth()->user()->id)->phone;
-        $url = env('NODE_WA_URL') . '/chats/send-bulk?id=' . $sessionId;
+        // $url = env('NODE_WA_URL') . '/chats/send-bulk?id=' . $sessionId;
         // $url = env('NODE_WA_URL') . '/chats/send?id=' . $sessionId;
+        $url = env('NODE_WA_URL') . '/chats/send-bulk2?id=' . $sessionId;
 
         $members = [];
         if ($request->ke == 'semua') {

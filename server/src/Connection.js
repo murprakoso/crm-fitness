@@ -215,7 +215,7 @@ const isExists = async (session, jid, isGroup = false) => {
  */
 const sendMessage = async (session, receiver, message) => {
     try {
-        await delay(0)
+        await delay(1000)
 
         return session.sendMessage(receiver, message)
     } catch {
