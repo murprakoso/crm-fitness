@@ -25,6 +25,7 @@
                                 <th>#</th>
                                 <th>Keterangan</th>
                                 <th>Isi Pesan</th>
+                                <th>Kirim ke status:</th>
                                 <th class="text-center" style="width: 20%;">Action</th>
                             </tr>
 
@@ -34,6 +35,17 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $pesan->keterangan }}</td>
                                     <td>{{ $pesan->pesan }}</td>
+                                    <td>
+                                        @if ($pesan->status)
+                                            <button class="btn btn-outline-success btn-sm btn--wa-kirim-ke-status"
+                                                data-status="{{ $pesan->status }}" data-pesan="{{ $pesan->pesan }}">
+                                                <i class="ion ion-social-whatsapp"></i>
+                                                <span>
+                                                    {{ $statuses[$pesan->status] }}
+                                                </span>
+                                            </button>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         <span class="btn--pesan"></span>
 
@@ -274,6 +286,38 @@
                 });
             })
             /** ./Modal */
+
+            /** Kirim ke berdasarkan status member */
+            $('.btn--wa-kirim-ke-status').click(function() {
+                let status = $(this).data('status')
+                let pesan = $(this).data('pesan')
+
+                $.ajax({
+                    url: "{{ route('whatsapp.send') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        ke: 'status',
+                        status,
+                        pesan,
+                    },
+                    beforeSend: function() {
+                        $('.btn--wa-kirim-ke-status').attr('disabled', true)
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        $('.btn--wa-kirim-ke-status').attr('disabled', false)
+                        toastr.success(response.message);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        toastr.warning(error.responseJSON.message);
+                    },
+                    complete: function() {
+                        $('.btn--wa-kirim-ke-status').attr('disabled', false)
+                    }
+                });
+            })
 
 
             /** Delete */

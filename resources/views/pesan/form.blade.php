@@ -37,6 +37,15 @@ $formTitle = !empty($pesans) ? 'Ubah' : 'Tambah';
                             {!! Form::label('pesan', 'Pesan') !!}
                             {!! Form::textarea('pesan', null, ['class' => 'form-control', 'rows' => '5', 'placeholder' => 'Isi Pesan']) !!}
                         </div>
+                        <div class="form-group">
+                            {!! Form::label('status', 'Status (Opsional)') !!}
+                            <button type="button" class="btn btn-sm btn-link" data-container="body" data-toggle="popover"
+                                data-placement="right"
+                                data-content="Kirim pesan ke member dengan status yang dipilih. Dapat dikosongkan.">
+                                <i class="ion ion-ios-help"></i>
+                            </button>
+                            {{ Form::select('status', $statuses, null, ['class' => 'form-control', 'id' => 'status-select', 'style' => 'width:100%;', 'placeholder' => '-- Pilih Status --']) }}
+                        </div>
 
                         <button class="btn btn-primary" type="submit">
                             {{ $formTitle }}

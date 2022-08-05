@@ -1,6 +1,9 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-        <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('logo.png') }}" alt="logo" width="30" style="margin: -5px 0 0 -20px;">
+            {{ env('APP_NAME') }}
+        </a>
     </div>
 
     {{-- <div class="sidebar-user">
@@ -24,8 +27,7 @@
         <li class="menu-header">Menu</li>
 
         <li class="{{ set_active(['transaksi.*']) }}">
-            <a href="{{ route('transaksi.index') }}"><i
-                    class="ion ion-ios-list-outline"></i><span>Transaksi</span></a>
+            <a href="{{ route('transaksi.index') }}"><i class="ion ion-ios-list-outline"></i><span>Transaksi</span></a>
         </li>
 
         <li class="{{ set_active(['presensi.*']) }}">

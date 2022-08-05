@@ -29,7 +29,7 @@ class PesanController extends Controller
      */
     public function create()
     {
-        return view('pesan.form');
+        return view('pesan.form', ['statuses' => Member::statuses()]);
     }
 
     /**
@@ -42,7 +42,8 @@ class PesanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'keterangan' => 'required|string|max:100',
-            'pesan'      => 'required'
+            'pesan'      => 'required',
+            'status'     => 'nullable'
         ]);
 
         if ($validator->fails()) {
@@ -80,7 +81,7 @@ class PesanController extends Controller
      */
     public function edit($id)
     {
-        return view('pesan.form', ['pesan' => Pesan::find($id)]);
+        return view('pesan.form', ['pesan' => Pesan::find($id), 'statuses' => Member::statuses()]);
     }
 
     /**
@@ -94,7 +95,8 @@ class PesanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'keterangan' => 'required|string|max:100',
-            'pesan'      => 'required'
+            'pesan'      => 'required',
+            'status'     => 'nullable'
         ]);
 
         if ($validator->fails()) {

@@ -36,27 +36,11 @@ class WaController extends Controller
                 'receiver' => $val->no_hp,
                 'message' => $pesan
             ];
-
-            //
-            // $data = json_encode([
-            //     'receiver' => $val->no_hp,
-            //     'message'  => $pesan
-            // ]);
-
-            // $this->curl_request('POST', $url, $data);
         }
 
-        // print("<pre>" . print_r($params, true) . "</pre>");
-        // die;
         # curl send wa
         $res = $this->curl_request('POST', $url, json_encode($params));
         return response()->json($res);
-
-        //
-        // $res = [
-        //     'message' => 'Berhasil dikirim'
-        // ];
-        // return response()->json($res);
     }
 
 
