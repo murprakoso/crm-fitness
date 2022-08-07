@@ -11,11 +11,19 @@ class Member extends Model
 
     protected $guarded = ['id'];
 
+    public static function genders()
+    {
+        return [
+            'pria'   => 'Pria',
+            'wanita' => 'Wanita'
+        ];
+    }
+
     public static function jobs()
     {
         return [
             'Mahasiswa' => 'Mahasiswa',
-            'IRT' => 'IRT'
+            'IRT'       => 'IRT'
         ];
     }
 
@@ -69,6 +77,11 @@ class Member extends Model
     public function scopeJob($query, $job)
     {
         return $query->where('job', '=', "$job");
+    }
+
+    public function scopeGender($query, $gender)
+    {
+        return $query->where('gender', '=', "$gender");
     }
 
     /**

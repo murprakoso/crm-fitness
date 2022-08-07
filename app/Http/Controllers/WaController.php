@@ -16,6 +16,7 @@ class WaController extends Controller
         // $url = env('NODE_WA_URL') . '/chats/send?id=' . $sessionId;
         $url = env('NODE_WA_URL') . '/chats/send-bulk2?id=' . $sessionId;
 
+
         $members = [];
         if ($request->ke == 'semua') {
             $members = Member::all();
@@ -25,6 +26,11 @@ class WaController extends Controller
             $members = Member::job($request->job)->get();
         } else if ($request->ke == 'status') {
             $members = Member::status($request->status)->get();
+            if ($members->count() < 1) {
+                return response()->json(['success' => false, 'message' => 'Tidak ada member dengan status yang dipilih.']);
+            }
+        } else if ($request->ke == 'gender') {
+            $members = Member::gender($request->gender)->get();
             if ($members->count() < 1) {
                 return response()->json(['success' => false, 'message' => 'Tidak ada member dengan status yang dipilih.']);
             }

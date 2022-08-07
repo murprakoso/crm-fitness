@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2022 at 09:25 PM
+-- Generation Time: Aug 07, 2022 at 12:00 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -151,7 +151,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2022_07_09_042437_create_transaksis_table', 1),
 (10, '2022_07_10_163441_add_status_to_members', 1),
 (11, '2022_07_14_205041_create_presensis_table', 1),
-(12, '2022_08_05_224039_add_status_to_pesans', 2);
+(12, '2022_08_05_224039_add_status_to_pesans', 2),
+(14, '2022_08_07_123902_update_table_pesans', 3);
 
 -- --------------------------------------------------------
 
@@ -193,7 +194,10 @@ CREATE TABLE `pesans` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `keterangan` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pesan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ke` enum('status','gender','job') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` enum('1','2','3') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` enum('pria','wanita') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `job` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -202,14 +206,12 @@ CREATE TABLE `pesans` (
 -- Dumping data for table `pesans`
 --
 
-INSERT INTO `pesans` (`id`, `keterangan`, `pesan`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Pengingat Jatuh Tempo', '*Halo pelanggan setia kami*... salam sehat :) \\r\\n Kami ingin memberitahukan bahwa masa aktif member anda akan segera berakhir, silahkan lakukan perpanjangan dan abaikan pesan jika sudah melakukan pembayaran. trimakasih :)', '1', NULL, '2022-08-05 16:39:03'),
-(2, 'informasi promo 17 agustus', 'Merdeka !!! untuk memperingati hari kemerdekaan Republik Indonesia AMgym mengadakan promo bagi member yang tanggal lahirnya pada hari kemerdekaan yaitu 17 Agustus dengan potongan harga member sebesar 50% !!! buruan daftar slot terbatass', NULL, NULL, NULL),
-(3, 'Member Tidak Aktif', 'Test kirim wa ke member tidak aktif', '2', '2022-08-05 15:50:33', '2022-08-05 16:46:15'),
-(4, 'Incidunt ut commodo', 'Dolore nihil volupta', '1', '2022-08-05 16:01:14', '2022-08-05 16:37:30'),
-(5, 'Incidunt ut commodo', 'Test kirim wa ke member masa tenggang', '3', '2022-08-05 16:01:28', '2022-08-05 16:45:40'),
-(6, 'test pesan baru', 'asdfasdfasdf', '3', '2022-08-05 16:01:43', '2022-08-05 16:01:43'),
-(7, 'test pesan baru', 'asdfasdfasdf', '2', '2022-08-05 16:01:49', '2022-08-05 16:01:49');
+INSERT INTO `pesans` (`id`, `keterangan`, `pesan`, `ke`, `status`, `gender`, `job`, `created_at`, `updated_at`) VALUES
+(1, 'Pengingat Jatuh Tempo', '*Halo pelanggan setia kami*... salam sehat :) \\r\\n Kami ingin memberitahukan bahwa masa aktif member anda akan segera berakhir, silahkan lakukan perpanjangan dan abaikan pesan jika sudah melakukan pembayaran. trimakasih :)', NULL, '1', NULL, NULL, NULL, '2022-08-05 16:39:03'),
+(2, 'informasi promo 17 agustus', 'Merdeka !!! untuk memperingati hari kemerdekaan Republik Indonesia AMgym mengadakan promo bagi member yang tanggal lahirnya pada hari kemerdekaan yaitu 17 Agustus dengan potongan harga member sebesar 50% !!! buruan daftar slot terbatass', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Member Mahasiswa', 'Test kirim wa ke member tidak aktif', 'status', '2', NULL, NULL, '2022-08-05 15:50:33', '2022-08-07 09:59:10'),
+(5, 'Member Dalam Masa Tenggang', 'Test kirim wa ke member masa tenggang', 'status', '3', NULL, NULL, '2022-08-05 16:01:28', '2022-08-07 09:33:00'),
+(8, 'Promo untuk pria', 'Promo khuusus', 'gender', NULL, 'pria', NULL, '2022-08-07 09:33:28', '2022-08-07 09:42:12');
 
 -- --------------------------------------------------------
 
@@ -373,7 +375,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -385,7 +387,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `pesans`
 --
 ALTER TABLE `pesans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `presensis`

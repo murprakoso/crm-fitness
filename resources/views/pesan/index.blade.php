@@ -25,7 +25,7 @@
                                 <th>#</th>
                                 <th>Keterangan</th>
                                 <th>Isi Pesan</th>
-                                <th>Kirim ke status:</th>
+                                <th>Kirim:</th>
                                 <th class="text-center" style="width: 20%;">Action</th>
                             </tr>
 
@@ -36,12 +36,14 @@
                                     <td>{{ $pesan->keterangan }}</td>
                                     <td>{{ $pesan->pesan }}</td>
                                     <td>
-                                        @if ($pesan->status)
-                                            <button class="btn btn-outline-success btn-sm btn--wa-kirim-ke-status"
-                                                data-status="{{ $pesan->status }}" data-pesan="{{ $pesan->pesan }}">
+                                        @if ($pesan->ke)
+                                            <button class="btn btn-outline-success btn-sm btn--wa-kirim-ke"
+                                                data-ke="{{ $pesan->ke }}" data-status="{{ $pesan->status }}"
+                                                data-gender="{{ $pesan->gender }}" data-job="{{ $pesan->job }}"
+                                                data-pesan="{{ $pesan->pesan }}">
                                                 <i class="ion ion-social-whatsapp"></i>
                                                 <span>
-                                                    {{ $statuses[$pesan->status] }}
+                                                    Kirim
                                                 </span>
                                             </button>
                                         @endif
@@ -288,8 +290,11 @@
             /** ./Modal */
 
             /** Kirim ke berdasarkan status member */
-            $('.btn--wa-kirim-ke-status').click(function() {
+            $('.btn--wa-kirim-ke').click(function() {
+                let ke = $(this).data('ke')
                 let status = $(this).data('status')
+                let job = $(this).data('job')
+                let gender = $(this).data('gender')
                 let pesan = $(this).data('pesan')
 
                 $.ajax({
@@ -297,16 +302,21 @@
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        ke: 'status',
+                        ke,
                         status,
+                        job,
+                        gender,
                         pesan,
                     },
                     beforeSend: function() {
-                        $('.btn--wa-kirim-ke-status').attr('disabled', true)
+                        $('.btn--wa-kirim-ke').attr('disabled', true)
                     },
                     success: function(response) {
                         console.log(response)
-                        $('.btn--wa-kirim-ke-status').attr('disabled', false)
+                        $('.btn--wa-kirim-ke').attr('disabled', false)
+                        if (response.success === false) {
+                            return toastr.error(response.message);
+                        }
                         toastr.success(response.message);
                     },
                     error: function(error) {
@@ -314,7 +324,7 @@
                         toastr.warning(error.responseJSON.message);
                     },
                     complete: function() {
-                        $('.btn--wa-kirim-ke-status').attr('disabled', false)
+                        $('.btn--wa-kirim-ke').attr('disabled', false)
                     }
                 });
             })

@@ -29,7 +29,7 @@ class PesanController extends Controller
      */
     public function create()
     {
-        return view('pesan.form', ['statuses' => Member::statuses()]);
+        return view('pesan.form', ['statuses' => Member::statuses(), 'jobs' => Member::jobs(), 'genders' => Member::genders()]);
     }
 
     /**
@@ -52,6 +52,12 @@ class PesanController extends Controller
 
         try {
             $params = $request->except(['_token']);
+            // pengiriman ke
+            $params['ke'] = ($request->kirimke) ? $request->kirimke : null;
+            $params['status'] = $request->kirimke == 'status' ? $request->status : null;
+            $params['job'] = $request->kirimke == 'job' ? $request->job : null;
+            $params['gender'] = $request->kirimke == 'gender' ? $request->gender : null;
+
             Pesan::create($params);
 
             session()->flash('success', 'Pesan berhasil ditambahkan.');
@@ -81,7 +87,7 @@ class PesanController extends Controller
      */
     public function edit($id)
     {
-        return view('pesan.form', ['pesan' => Pesan::find($id), 'statuses' => Member::statuses()]);
+        return view('pesan.form', ['pesan' => Pesan::find($id), 'statuses' => Member::statuses(), 'jobs' => Member::jobs(), 'genders' => Member::genders()]);
     }
 
     /**
@@ -105,6 +111,13 @@ class PesanController extends Controller
 
         try {
             $params = $request->except(['_token']);
+
+            // pengiriman ke
+            $params['ke'] = ($request->kirimke) ? $request->kirimke : null;
+            $params['status'] = $request->kirimke == 'status' ? $request->status : null;
+            $params['job'] = $request->kirimke == 'job' ? $request->job : null;
+            $params['gender'] = $request->kirimke == 'gender' ? $request->gender : null;
+
             $pesan->update($params);
 
             session()->flash('success', 'Pesan berhasil diubah.');
