@@ -25,7 +25,7 @@ class HomeController extends Controller
 
 
         /**
-         * Bar Chart
+         * Bar Chart: pendaftaran member
          */
         $month = $this->_dates('keyMonths'); // array key months
         $dataMembers = [];
@@ -37,7 +37,7 @@ class HomeController extends Controller
 
 
         /**
-         * Pie Chart
+         * Pie Chart: member berdasarkan job
          */
         $labelJobs = ['Mahasiswa', 'IRT', 'Lain-lain'];
         $memberJobs = [];
@@ -54,12 +54,23 @@ class HomeController extends Controller
                 ->count();
         }
 
+        /**
+         * Pie Chart: member berdasarkan gender
+         */
+        $labelGenders = ['Pria', 'Wanita'];
+        $memberGenders = [];
+        foreach ($labelGenders as $key => $value) {
+            $month =  date('m');
+            $memberGenders[] = Member::gender($value)->where(DB::raw("DATE_FORMAT(created_at, '%m')"), $month)->count();
+        }
+
         //
         $memberMasaTenggang = Member::status(3);
         // return data to view
         return view('home.index', [
             'memberMasaTenggang'     => $memberMasaTenggang->count(),
             'memberMasaTenggangList' => $memberMasaTenggang->paginate(5),
+            'memberTidakAktif'       => Member::status(2)->count(),
             'statuses'               => Member::statuses(),
             'memberAktif'            => Member::status(1)->tipe('tetap')->count(),
             'memberTerdaftar'        => Member::all()->count(),
@@ -68,6 +79,8 @@ class HomeController extends Controller
             'dataMembers'            => json_encode($dataMembers, JSON_NUMERIC_CHECK),
             'labelJobs'              => json_encode($labelJobs, JSON_NUMERIC_CHECK),
             'dataMemberJobs'         => json_encode($memberJobs, JSON_NUMERIC_CHECK),
+            'labelGenders'           => json_encode($labelGenders, JSON_NUMERIC_CHECK),
+            'dataMemberGenders'      => json_encode($memberGenders, JSON_NUMERIC_CHECK),
         ]);
     }
 

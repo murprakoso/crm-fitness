@@ -14,29 +14,40 @@
             </div>
         </div>
 
-        <div class="row">
-            @include('home.widget')
-        </div>
+        @include('home.widget')
 
         {{-- Grafik #row-2 --}}
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h4>Grafik Pendaftaran Member Per-Bulan, Tahun {{ date_id(date('Y-m-d'), 'Y') }}</h4>
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart2"></canvas>
+                        <canvas id="chart1"></canvas>
                     </div>
                 </div>
             </div>
+        </div> --}}
+
+        <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h4>Grafik Segmentasi Job Member Per-Bulan {{ date_id(date('Y-m-d'), 'MMMM') }}</h4>
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart4"></canvas>
+                        <canvas id="chart2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Grafik Segmentasi Gender Member Per-Bulan {{ date_id(date('Y-m-d'), 'MMMM') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="chart3"></canvas>
                     </div>
                 </div>
             </div>
@@ -47,7 +58,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Member dalam masa tenggang</h4>
+                        <h4>Member dalam masa tenggang ({{ $memberMasaTenggangList->count() }})</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -114,7 +125,7 @@
     <script src="{{ asset('dist/modules/chart.min.js') }}"></script>
     <script>
         /** Bar Chart */
-        var ctx = document.getElementById("myChart2").getContext('2d');
+        var ctx = document.getElementById("chart1").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -157,7 +168,7 @@
         });
 
         /** Pie Chart */
-        var ctx = document.getElementById("myChart4").getContext('2d');
+        var ctx = document.getElementById("chart2").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'pie',
             data: {
@@ -175,6 +186,32 @@
                 }],
                 // labels: [ 'Purple', 'Green', 'Yellow', 'Red', 'Black' ],
                 labels: {!! $labelJobs !!},
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+
+
+        /** Pie Chart */
+        var ctx = document.getElementById("chart3").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    // data: [ 80, 50, 40, 30, 20, ],
+                    data: {!! $dataMemberGenders !!},
+                    backgroundColor: [
+                        '#574B90',
+                        '#ffc107',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                // labels: [ 'Purple', 'Green', 'Yellow', 'Red', 'Black' ],
+                labels: {!! $labelGenders !!},
             },
             options: {
                 responsive: true,
