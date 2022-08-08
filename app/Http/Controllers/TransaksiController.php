@@ -57,14 +57,16 @@ class TransaksiController extends Controller
         $input['tipe_member'] = $request->member;
 
         $input['masa_tenggang'] = $input['tanggal_daftar'];
+        $input['status'] = 1;
         if ($request->member == 'tetap') {
             $input['masa_tenggang'] = date("Y-m-d", strtotime("+1 month", strtotime($input['tanggal_daftar'])));
+            $input['status'] = $this->_status($input['masa_tenggang']); //1:aktif,2:tidak aktif,3:masa tenggang
         }
 
         try {
             Transaksi::create($input);
             Member::find($memberId)->update([
-                'status'        => $this->_status($input['masa_tenggang']), //1:aktif,2:tidak aktif,3:masa tenggang
+                'status'        => $input['status'],
                 'tipe_member'   => $request->member,
                 'jenis_member'  => $request->jenis_member,
                 'masa_tenggang' => $input['masa_tenggang']
@@ -79,22 +81,22 @@ class TransaksiController extends Controller
     }
 
     /** perpanjang member */
-    public function perpanjang(Request $request)
-    {
-        $idMember = $request->id_member;
-        $masaTenggang = date('Y-m-d', strtotime(str_replace("/", "-", $request->masa_tenggang)));
+    // public function perpanjang(Request $request)
+    // {
+    //     $idMember = $request->id_member;
+    //     $masaTenggang = date('Y-m-d', strtotime(str_replace("/", "-", $request->masa_tenggang)));
 
-        try {
-            Member::where('id', $idMember)
-                ->update(['masa_tenggang' => $masaTenggang, 'harga' => $request->harga]);
+    //     try {
+    //         Member::where('id', $idMember)
+    //             ->update(['masa_tenggang' => $masaTenggang, 'harga' => $request->harga]);
 
-            session()->flash('success', 'Member berhasil diperpanjang.');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            session()->flash('error', 'Member gagal diperpanjang. ' . $th->getMessage());
-            return redirect()->back();
-        }
-    }
+    //         session()->flash('success', 'Member berhasil diperpanjang.');
+    //         return redirect()->back();
+    //     } catch (\Throwable $th) {
+    //         session()->flash('error', 'Member gagal diperpanjang. ' . $th->getMessage());
+    //         return redirect()->back();
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -135,14 +137,16 @@ class TransaksiController extends Controller
         $input['tipe_member'] = $request->member;
 
         $input['masa_tenggang'] = $input['tanggal_daftar'];
+        $input['status'] = 1;
         if ($request->member == 'tetap') {
             $input['masa_tenggang'] = date("Y-m-d", strtotime("+1 month", strtotime($input['tanggal_daftar'])));
+            $input['status'] = $this->_status($input['masa_tenggang']); //1:aktif,2:tidak aktif,3:masa tenggang
         }
 
         try {
             $transaksi->update($input);
             Member::find($memberId)->update([
-                'status'        => $this->_status($input['masa_tenggang']), //1:aktif,2:tidak aktif,3:masa tenggang
+                'status'        => $input['status'],
                 'tipe_member'   => $request->member,
                 'jenis_member'  => $request->jenis_member,
                 'masa_tenggang' => $input['masa_tenggang']

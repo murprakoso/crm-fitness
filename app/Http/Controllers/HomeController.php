@@ -54,13 +54,14 @@ class HomeController extends Controller
                 ->count();
         }
 
-
+        //
+        $memberMasaTenggang = Member::status(3);
         // return data to view
         return view('home.index', [
-            'memberMasaTenggang'     => Member::status(3)->count(),
-            'memberMasaTenggangList' => Member::status(3)->paginate(5),
+            'memberMasaTenggang'     => $memberMasaTenggang->count(),
+            'memberMasaTenggangList' => $memberMasaTenggang->paginate(5),
             'statuses'               => Member::statuses(),
-            'memberAktif'            => Member::tipe('tetap')->count(),
+            'memberAktif'            => Member::status(1)->tipe('tetap')->count(),
             'memberTerdaftar'        => Member::all()->count(),
             'memberHarian'           => Member::tipe('harian')->count(),
             'labelMonth'             => json_encode($labelMonth, JSON_NUMERIC_CHECK),
